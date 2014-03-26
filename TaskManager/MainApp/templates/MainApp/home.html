@@ -8,11 +8,42 @@
 {# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
 
-{# Display a form #}
-<div class="container header">
-	<div class="row">
-		<div class="col-md-12 text-center" style="background-color: #eee;">
-			<h3>TASK MANAGER 2014</h3>
+<style>
+	.navbar-default .navbar-nav>li>a {color: white;}
+	.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {background-color: transparent;}
+	.jumbotron {margin-bottom: 0px; padding: 0px;}
+	.newEvent {background-color: #33F;}
+</style>
+
+<div class="container-fluid text-center" style="background-color: #eee;">
+	<h4>TASK MANAGER 2014</h4>
+</div>
+<div class="navbar navbar-default" role="navigation" style="margin: 0px; background-color: #BBB;">
+	<div class="container">
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home</a></li>
+				<li><a href="#groups">Groups</a></li>
+				<li><a href="#tasks">Tasks</a></li>
+				<li><a href="#profile">Profile</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#logout">Logout</a></li>
+			</ul>
+		</div><!--/.nav-collapse -->
+	</div>
+</div> <!-- END TOP MENU -->
+<div class="container-fluid jumbotron">
+	<div class="row" style="height: 100%;">
+		<!-- START LEFT PANEL -->
+		<div class="col-md-6" style="border-right: solid 1px black; height: 100%;">
+			<div class="cold-md-10 newEvent">
+			</div>
+		</div>
+	
+		<!-- START RIGHT PANEL -->
+		<div class="col-md-6" style="height: 100%;">
+			RIGHT PANEL
 		</div>
 	</div>
 </div>
