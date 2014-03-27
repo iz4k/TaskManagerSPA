@@ -39,6 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3',
+    'login',
+    'social.apps.django_app.default',
 )
 
 MIDDLEWARE_CLASSES = (
