@@ -11,14 +11,20 @@
 <style>
 	.navbar-default .navbar-nav>li>a {color: white;}
 	.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {background-color: transparent;}
-	.jumbotron {margin-bottom: 0px; padding: 0px;}
-	.newEvent {background-color: #33F;}
+	.jumbotron {margin-bottom: 0px; padding: 0px; margin-top: -40px;}
+	.newEvent {background-color: #72C7FC; margin: 10px 20px 5px 20px; padding: 8px 5px; color: white; border: solid 1px gray; }
+	.left-panel, .right-panel {padding: 0px; border-right: solid 1px black; margin-top: 60px;}
+	.left-panel {border-left: solid 1px black;}
+	.custom-panel {height: 50%;}
+	.row {margin: 0px;}
+	.outer-div {}
+	.inner-div {}
 </style>
 
 <div class="container-fluid text-center" style="background-color: #eee;">
 	<h4>TASK MANAGER 2014</h4>
 </div>
-<div class="navbar navbar-default" role="navigation" style="margin: 0px; background-color: #BBB;">
+<div class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin: 0px; background-color: #BBB;">
 	<div class="container">
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
@@ -33,42 +39,56 @@
 		</div><!--/.nav-collapse -->
 	</div>
 </div> <!-- END TOP MENU -->
-<div class="container-fluid jumbotron">
+<div class="container jumbotron">
 	<div class="row" style="height: 100%;">
 		<!-- START LEFT PANEL -->
-		<div class="col-md-6" style="border-right: solid 1px black; height: 100%;">
-			<div class="cold-md-10 newEvent">
-				New comment on task '1'
+		<div class="col-md-6 left-panel outer-div">
+			<div class="inner-div">
+				<div class="cold-md-10 newEvent">
+						New comment on task '1'
+					</div>
+					<div class="cold-md-10 newEvent">
+						You marked 'Y' as done 
+					</div>
+					<div class="cold-md-10 newEvent">
+						New comment on task 'xz'
+					</div>
+					<div class="cold-md-10 newEvent">
+						Task 'xz' was created
+					</div>
+					<div class="cold-md-10 newEvent">
+						New contributors on 'Y'
+					</div>
+					<div class="cold-md-10 newEvent">
+						New comment on 'Y'
+					</div>
+					<div class="cold-md-10 newEvent">
+						New sub-objective for 'Y'
+					</div>
+					<div class="cold-md-10 newEvent">
+						Gavin, Mark and Steve joined group 'Z'
+					</div>
+					<div class="cold-md-10 newEvent">
+						You joined goup 'Z'
+					</div>
+				</div>
 			</div>
-			<div class="cold-md-10 newEvent">
-				You marked 'Y' as done 
+
+			<!-- START RIGHT PANEL -->
+			<div class="col-md-6 right-panel">
+				<div class="row">
+					<div class="col-md-12 custom-panel outer-div" style="border-bottom: solid 1px black;">
+						<div class="inner-div">
+							TOP
+						</div>
+					</div>
+					<div class="col-md-12 custom-panel outer-div">
+						<div class="inner-div">
+							DOW
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="cold-md-10 newEvent">
-				New comment on task 'xz'
-			</div>
-			<div class="cold-md-10 newEvent">
-				Task 'xz' was created
-			</div>
-			<div class="cold-md-10 newEvent">
-				New contributors on 'Y'
-			</div>
-			<div class="cold-md-10 newEvent">
-				New comment on 'Y'
-			</div>
-			<div class="cold-md-10 newEvent">
-				New sub-objective for 'Y'
-			</div>
-			<div class="cold-md-10 newEvent">
-				Gavin, Mark and Steve joined group 'Z'
-			</div>
-			<div class="cold-md-10 newEvent">
-				You joined goup 'Z'
-			</div>
-		</div>
-	
-		<!-- START RIGHT PANEL -->
-		<div class="col-md-6" style="height: 100%;">
-			
-		</div>
-	</div>
-</div>
+		</div> <!-- outer-div -->
+	</div> <!-- 1st row -->
+</div> <!-- container -->
