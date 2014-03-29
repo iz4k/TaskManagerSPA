@@ -17,14 +17,16 @@
 <div class="container-fluid jumbotron">
 	<div class="row text-center" style="height: 100%;">
 		{% if user.is_authenticated %} <!--Logged in--> 
-		<p class="main-text">Welcome <span class="username">{{user.username}}</span>.</p>
 
-		
-		
-		<a class="my-button" href="home/">Go to Home Page</a>
+			<p >Welcome <span class="username">{{user.username}}</span>.</p>
+			<p> First Login laadidaa </p>
+			
+			
+			<a href="/">Go to Home Page</a>
+			<a href="/logout">Logout</a>
 
 		{% else %}<!--Not logged in-->
-		Error ocurred 
+			Error ocurred 
 		{% endif %}
 	</div>
 </div>

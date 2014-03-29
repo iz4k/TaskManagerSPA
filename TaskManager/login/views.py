@@ -22,7 +22,7 @@ def login(request):
             # Correct password, and the user is marked "active"
             auth.login(request, user)
             # Redirect to a success page.
-            return HttpResponseRedirect("/home/")#goes to the main page
+            return HttpResponseRedirect("/")#goes to the main page
         else:
             # Show an error page
             form = AuthenticationForm(request.POST)

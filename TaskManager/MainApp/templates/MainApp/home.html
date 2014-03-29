@@ -10,7 +10,13 @@
 
 {# Display a form #}
 
-<form action="/contact/" method="post">{% csrf_token %}
-	{{ form.as_p }}
-	<input type="submit" value="Submit"  class="btn btn-default"/>
-</form>
+
+{% if user.is_authenticated %} <!--Logged in--> 
+		<p class="main-text">Welcome <span class="username">{{user.username}}</span>.</p>
+		<a href="/logout">Logout</a>
+{% else %}<!--Not logged in-->
+	
+<a href="/login/">Login.</a>
+<a href="/register/">Register.</a>
+
+{% endif %}
