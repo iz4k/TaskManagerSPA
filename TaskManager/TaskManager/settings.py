@@ -30,7 +30,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    
     'django.contrib.admin',
     'MainApp',
     'django.contrib.auth',
@@ -65,6 +64,10 @@ DATABASES = {
     }
 }
 
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -82,4 +85,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
+STATIC_ROOT = 'staticfiles'
+
 STATIC_URL = '/static/'
+
+STATIC_URL = '/s/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'public/static'),
+)
