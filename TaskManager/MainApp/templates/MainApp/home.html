@@ -1,16 +1,60 @@
-{% load bootstrap3 %}
+{% extends 'base.html' %}
 
-{# Load CSS and JavaScript #}
+{% block navbar %}
+	{% include "navbar.html" %}
+{% endblock %}
+{% block container %}
+<div class="container jumbotron homePage">
+<div class="row">
+	<!-- START LEFT PANEL -->
+	<div class="col-md-6 left-panel outer-div">
+		<div class="inner-div">
+			<div class="cold-md-10 newEvent">
+					New comment on task '1'
+				</div>
+				<div class="cold-md-10 newEvent">
+					You marked 'Y' as done 
+				</div>
+				<div class="cold-md-10 newEvent">
+					New comment on task 'xz'
+				</div>
+				<div class="cold-md-10 newEvent">
+					Task 'xz' was created
+				</div>
+				<div class="cold-md-10 newEvent">
+					New contributors on 'Y'
+				</div>
+				<div class="cold-md-10 newEvent">
+					New comment on 'Y'
+				</div>
+				<div class="cold-md-10 newEvent">
+					New sub-objective for 'Y'
+				</div>
+				<div class="cold-md-10 newEvent">
+					Gavin, Mark and Steve joined group 'Z'
+				</div>
+				<div class="cold-md-10 newEvent">
+					You joined goup 'Z'
+				</div>
+			</div>
+		</div>
 
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-
-{# Display a form #}
-
-<form action="/contact/" method="post">{% csrf_token %}
-	{{ form.as_p }}
-	<input type="submit" value="Submit"  class="btn btn-default"/>
-</form>
+		<!-- START RIGHT PANEL -->
+		<div class="col-md-6 right-panel">
+			<div class="row">
+				<div class="col-md-12 custom-panel outer-div" style="border-bottom: solid 1px black;">
+					<div class="inner-div">
+						TOP
+					</div>
+				</div>
+				<div class="col-md-12 custom-panel outer-div">
+					<div class="inner-div">
+						DOW
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> <!-- outer-div -->
+</div>
+</div>
+{% endblock %}
