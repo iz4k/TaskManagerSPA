@@ -1,0 +1,30 @@
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+
+
+<div class="container-fluid text-center" style="background-color: #eee;">
+	<h4>TASK MANAGER 2014</h4>
+</div>
+
+<div class="container-fluid jumbotron">
+	<div class="row text-center" style="height: 100%;">
+		{% if user.is_authenticated %} <!--Logged in--> 
+		<p class="main-text">Welcome <span class="username">{{user.username}}</span>.</p>
+
+		
+		
+		<a class="my-button" href="home/">Go to Home Page</a>
+
+		{% else %}<!--Not logged in-->
+		Error ocurred 
+		{% endif %}
+	</div>
+</div>

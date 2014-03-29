@@ -52,6 +52,11 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+TEMPLATE_DIRS = (
+    'login/templates',
+    'MainApp/templates',
+)
+
 ROOT_URLCONF = 'TaskManager.urls'
 
 WSGI_APPLICATION = 'TaskManager.wsgi.application'
@@ -85,3 +90,46 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    )
+
+
+#SOCIAL_AUTH_STORAGE = 'social.apps.django_app.me.models.DjangoStorage'#MonoEngine
+
+AUTHENTICATION_BACKENDS = (
+      'social.backends.github.GithubOAuth2',
+      'social.backends.open_id.OpenIdAuth',
+      'social.backends.google.GoogleOpenId',
+      'social.backends.google.GoogleOAuth2',
+      'social.backends.google.GoogleOAuth',
+      'social.backends.twitter.TwitterOAuth',
+      'social.backends.yahoo.YahooOpenId',
+      'django.contrib.auth.backends.ModelBackend',
+  )
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect',
+    'django.contrib.auth.context_processors.auth',
+)
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+URL_PATH = ''
+
+NEW_USER_REDIRECT_URL = '/new_user/'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/new_user/'
+
+SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
+SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
+
+SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
+#SOCIAL_AUTH_CLEAN_USERNAMES = False
+
+SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
+    'https://www.googleapis.com/auth/drive',
+    'https://www.googleapis.com/auth/userinfo.profile'
+]

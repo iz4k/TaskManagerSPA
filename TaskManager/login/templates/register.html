@@ -1,0 +1,42 @@
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+
+
+<div class="container-fluid text-center" style="background-color: #eee;">
+	<h4>TASK MANAGER 2014</h4>
+</div>
+
+<div class="container-fluid jumbotron">
+	<div class="row text-center" style="height: 100%;">
+		<div class="col-md-4 col-md-offset-5 centered" class="divForm">
+			<form role="form" class="form-horizontal" action="" method="post">
+				<div class="form-group">
+					{% csrf_token %}
+					{% for field in form %}
+						{{field.errors}}
+						{{ field }}
+					{% endfor %}
+				    <input type="submit" value="Create the Account">
+				    
+				</div>
+		 	</form>
+
+			<a href="/login/" class="change-logreg" >Already have an account? Log in here.</a>
+
+			<div>Or Log In With:</div>
+
+			<a class="social-log-link" href="{% url 'social:begin' 'google' %}">Google OpenId</a>
+			<a class="social-log-link" href="{% url 'social:begin' 'yahoo' %}">Yahoo OpenId</a>
+
+			</div><!--logreg-area--> 
+		</div>
+	</div>
+</div>

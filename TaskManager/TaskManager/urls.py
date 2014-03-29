@@ -10,5 +10,6 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^home/', include('MainApp.urls')),
-    url(r'$', 'MainApp.views.login'),
+    url(r'',include('login.urls')),
+    #url(r'$', 'MainApp.views.login'),
 )
