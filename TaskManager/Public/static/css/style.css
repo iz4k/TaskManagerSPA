@@ -2,6 +2,10 @@ html, body {height: 100%;}
 .homePage, .row {height: 100%;}
 .row {margin: 0px;}
 
+.nopadding {padding: 0px!important;}
+.nomargin {margin: 0px !important;}
+.noboth {padding: 0px !important; margin: 0px !important;}
+
 .navbar-default .navbar-nav>li>a {color: white;}
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {background-color: transparent;}
 .jumbotron {margin-bottom: 0px; padding: 0px;}
@@ -9,5 +13,10 @@ html, body {height: 100%;}
 .left-panel, .right-panel {border-right: solid 1px black; padding: 52px 0px 0px 0px; height: 100%;}
 .left-panel {border-left: solid 1px black;}
 .custom-panel {height: 50%;}
-.outer-div {}
+.outer-div {padding: 0px; margin: 0px;}
 .inner-div {padding: 10px 20px 0px 20px;}
+
+.prioMsg {margin-bottom: 10px; padding: 8px 5px;}
+.msgNormal {border: solid 1px green;}
+.msgLow {border: solid 1px yellow;}
+.msgHigh {border: solid 1px red;}
