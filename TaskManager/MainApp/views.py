@@ -28,18 +28,18 @@ def groups(request):
 
 def groups_new(request):
 	if request.user.is_authenticated():
-		# if request.method == 'POST': # If the form has been submitted...
-		# 	# ContactForm was defined in the the previous section
-		# 	form = GroupForm(request.POST) # A form bound to the POST data
-		# 	if form.is_valid(): # All validation rules pass
-		# 		# Process the data in form.cleaned_data
-		# 		# ...
-		# 		return HttpResponseRedirect('/') # Redirect after POST
-		# else:
-		form = GroupForm() # An unbound form
+		if request.method == 'POST': # If the form has been submitted...
+			form = GroupForm(request.POST) # A form bound to the POST data
+			if form.is_valid(): # All validation rules pass
+				
+				form.save()
+
+				return HttpResponseRedirect("/groups") # Redirect after POST
+		else:
+			form = GroupForm() # An unbound form
 
 		#return render_to_response('MainApp/groups_new.html', context_instance=RequestContext(request, {'form': form}))
-		return render_to_response('MainApp/groups_new.html',{'user':request.user, 'form':form}) 
+		return render_to_response('MainApp/groups_new.html',{'user':request.user, 'form':form}, context_instance=RequestContext(request)) 
 	else:
 		#messages.error(request, 'User not authorized.')
 		return HttpResponseRedirect("/login")
@@ -57,3 +57,5 @@ def groups_view(request, group_id):
     else:
         #messages.error(request, 'User not authorized.')
         return HttpResponseRedirect("/login")
+        # NEED TO RETURN LIST OF RELATED TASKS TOO
+
