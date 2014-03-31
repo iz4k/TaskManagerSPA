@@ -46,7 +46,27 @@
 					</div>			
 					<!-- START RIGHT PANEL -->
 					<div class="col-md-6 right-panel">
-					{% block right-panel %}{%endblock%}
+					{% block right-panel %}
+						<div class="row">
+							<div class="col-md-12 custom-panel outer-div" style="border-bottom: solid 1px black;">
+								<div class="inner-div">
+									<div class="col-md-12 prioMsg">
+										<div class="col-md-1 nopadding">
+											12.3
+										</div>
+										<div class="col-md-offset-1 col-md-6 nopadding msgNormal">
+											Normal
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 custom-panel outer-div nopadding">
+								<div class="inner-div">
+									DOW
+								</div>
+							</div>
+						</div>
+					{%endblock%}
 					</div> <!-- outer-div -->
 				</div>
 			</div>

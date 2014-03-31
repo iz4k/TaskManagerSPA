@@ -1,8 +1,15 @@
 
 		<div class="inner-div content">
 		{# IMPLEMENT THE LIST FOR GROUPS #}
-		<a href="">Home</a>
-
+		<ul>
+		{% for group in group_list %}
+			<li>{{ group.name }}</li>
+		{% endfor %}
+		</ul>
 		<a href="/groups/new">New group</a>
+
+		<script type="text/javascript">
+			console.log({{group_list}});
+		</script>
 		</div>
 		
