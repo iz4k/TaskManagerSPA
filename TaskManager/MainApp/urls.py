@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, include, url
-
+from MainApp import views
 urlpatterns = patterns('',
-    url(r'^$', 'MainApp.views.home'),
-    url(r'^groups/$', 'MainApp.views.groups'),
-    url(r'^groups_new/', 'MainApp.views.groups_new'),
+    url(r'^$', views.home),
+    url(r'^groups/$', views.groups),
+    url(r'^groups/(?P<group_id>[0-9])/$', views.groups_view),    
+    url(r'^groups_new/', views.groups_new),
 )

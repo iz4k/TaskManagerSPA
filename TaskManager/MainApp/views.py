@@ -27,15 +27,33 @@ def groups(request):
 		return HttpResponseRedirect("/login")
 
 def groups_new(request):
-	# if request.method == 'POST': # If the form has been submitted...
-	# 	# ContactForm was defined in the the previous section
-	# 	form = GroupForm(request.POST) # A form bound to the POST data
-	# 	if form.is_valid(): # All validation rules pass
-	# 		# Process the data in form.cleaned_data
-	# 		# ...
-	# 		return HttpResponseRedirect('/') # Redirect after POST
-	# else:
-	form = GroupForm() # An unbound form
+	if request.user.is_authenticated():
+		# if request.method == 'POST': # If the form has been submitted...
+		# 	# ContactForm was defined in the the previous section
+		# 	form = GroupForm(request.POST) # A form bound to the POST data
+		# 	if form.is_valid(): # All validation rules pass
+		# 		# Process the data in form.cleaned_data
+		# 		# ...
+		# 		return HttpResponseRedirect('/') # Redirect after POST
+		# else:
+		form = GroupForm() # An unbound form
 
-	#return render_to_response('MainApp/groups_new.html', context_instance=RequestContext(request, {'form': form}))
-	return render_to_response('MainApp/groups_new.html',{'user':request.user, 'form':form}) 
+		#return render_to_response('MainApp/groups_new.html', context_instance=RequestContext(request, {'form': form}))
+		return render_to_response('MainApp/groups_new.html',{'user':request.user, 'form':form}) 
+	else:
+		#messages.error(request, 'User not authorized.')
+		return HttpResponseRedirect("/login")
+
+def groups_view(request, group_id):
+    if request.user.is_authenticated():
+        user = request.user
+        try:
+        	group = Group.objects.get(id = group_id)
+        except Group.DoesNotExist:
+        	#some sort of error page here?
+        	return HttpResponseRedirect("/")
+        #need to check if user is in group here
+        return render_to_response('MainApp/group.html', {'group':group})
+    else:
+        #messages.error(request, 'User not authorized.')
+        return HttpResponseRedirect("/login")

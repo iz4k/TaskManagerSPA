@@ -1,0 +1,10 @@
+<div class="inner-div content">
+	
+	<h2> {{group.name }} </h2>
+	<p>{{group.description}}</p>
+	<ul>
+		{% for user in group.users.all %}
+		<li>{{user.username}}</li>
+		{% endfor %}
+	</ul>
+</div>
