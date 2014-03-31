@@ -31,3 +31,25 @@ html, body {padding, margin:0;height:100%;}
 .msgNormal {border: solid 1px green;}
 .msgLow {border: solid 1px yellow;}
 .msgHigh {border: solid 1px red;}
+
+.form-field{
+	/*background-color: green;*/
+}
+.form-field label{
+	font-weight: 100;
+	display: block;
+	padding: 1em;
+}
+.form-field  ul label{
+	padding: 0;
+}
+.form-field input[type='text'], .form-field textarea{
+	width:70%;
+}
+.form-field ul li{
+	list-style: none;
+}
+.form-group input[type='submit']{
+	margin: 2em;
+	width: 20%;
+}

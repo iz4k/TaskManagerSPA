@@ -1,0 +1,26 @@
+<div class="inner-div content">
+	<form role="form" class="form-horizontal" action="" method="post">
+		<div class="form-group">
+			{% csrf_token %}
+			<div class="form-field">
+				{{form.name.errors}}
+				<label for="id_name">Name:</label>
+				{{form.name}}
+			</div>
+			
+			<div class="form-field">
+				{{form.description.errors}}
+				<label for="id_description">Description:</label>
+				{{form.description}}
+			</div>
+
+			<div class="form-field">
+				{{form.users.errors}}
+				<label for="id_users">Users:</label>
+				{{form.users}}
+			</div>
+		    <input type="submit" value="Create" />
+		    <input type="hidden" name="next" value="{{ next|escape }}" />
+		</div>
+ 	</form>
+</div>

@@ -3,13 +3,17 @@
 		{# IMPLEMENT THE LIST FOR GROUPS #}
 		<ul>
 		{% for group in group_list %}
-			<li>{{ group.name }}</li>
+			<li><a href="/groups/{{ group.pk }}">{{ group.name }}</a></li>
 		{% endfor %}
 		</ul>
-		<a href="/groups/new">New group</a>
-
-		<script type="text/javascript">
-			console.log({{group_list}});
+		<a href="/groups_new/" class="ajax">New group</a>
+		<script>
+			$('.ajax').click(function(){
+				$('.left-panel').load($(this).attr('href'));
+				$('.active').removeClass('active');
+				$(this).parent('li').addClass('active');
+				return false;
+			});
 		</script>
 		</div>
 		

@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 
 from MainApp.models import *
+from main_forms import *
 
 def home(request):
 
@@ -24,3 +25,17 @@ def groups(request):
 	else:
 		#messages.error(request, 'User not authorized.')
 		return HttpResponseRedirect("/login")
+
+def groups_new(request):
+	# if request.method == 'POST': # If the form has been submitted...
+	# 	# ContactForm was defined in the the previous section
+	# 	form = GroupForm(request.POST) # A form bound to the POST data
+	# 	if form.is_valid(): # All validation rules pass
+	# 		# Process the data in form.cleaned_data
+	# 		# ...
+	# 		return HttpResponseRedirect('/') # Redirect after POST
+	# else:
+	form = GroupForm() # An unbound form
+
+	#return render_to_response('MainApp/groups_new.html', context_instance=RequestContext(request, {'form': form}))
+	return render_to_response('MainApp/groups_new.html',{'user':request.user, 'form':form}) 
