@@ -10,14 +10,15 @@
 		<link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
 		<title>Task manager 2014 - {% block pagetitle %}{% endblock %}</title>
-
+		<script src="http://code.jquery.com/jquery-latest.min.js"
+        type="text/javascript"></script>
 		<!-- Bootstrap core CSS -->
         {% load bootstrap3 %}
         {% bootstrap_css %}
         {% bootstrap_javascript %}
 		<link href="{% static 'css/style.css' %}" rel="stylesheet">
 
-        <script src="{% static 'js/scripts.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
 
 		{% block head %}
 		{% endblock %}
@@ -32,10 +33,24 @@
 				<h4>TASK MANAGER 2014</h4>
 			</div>
 		{% endcomment %}
-
+		<div class="row">
 		{% block navbar %}{% endblock %}
 
-        {% block container %}	
-		{% endblock %}
+      
+
+			<div class="container jumbotron homePage">
+				<div class="row">
+					<!-- START LEFT PANEL -->
+					<div class="col-md-6 left-panel outer-div">	
+					{% block left-panel %}{%endblock%}
+					</div>			
+					<!-- START RIGHT PANEL -->
+					<div class="col-md-6 right-panel">
+					{% block right-panel %}{%endblock%}
+					</div> <!-- outer-div -->
+				</div>
+			</div>
+		
+		</div>
 	</body>
 </html>

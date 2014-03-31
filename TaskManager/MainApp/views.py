@@ -14,4 +14,10 @@ def home(request):
 
 
 def groups(request):
-	return render(request, 'MainApp/groups.html')
+
+	if request.user.is_authenticated():
+		user = request.user
+		return render_to_response('MainApp/groups.html', {'user':request.user})
+	else:
+		#messages.error(request, 'User not authorized.')
+		return HttpResponseRedirect("/login")
