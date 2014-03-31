@@ -6,6 +6,5 @@ class GroupForm(forms.ModelForm):
 	    model = Group
 	    fields = ["name", "description", "users"]
 	    widgets = {
-	    	'description': forms.Textarea(),
 	    	'users': forms.CheckboxSelectMultiple()
 	    }

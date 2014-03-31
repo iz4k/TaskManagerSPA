@@ -31,9 +31,7 @@ def groups_new(request):
 		if request.method == 'POST': # If the form has been submitted...
 			form = GroupForm(request.POST) # A form bound to the POST data
 			if form.is_valid(): # All validation rules pass
-				
 				form.save()
-
 				return HttpResponseRedirect("/groups") # Redirect after POST
 		else:
 			form = GroupForm() # An unbound form
