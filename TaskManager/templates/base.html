@@ -1,0 +1,41 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+		<title>Task manager 2014 - {% block pagetitle %}{% endblock %}</title>
+
+		<!-- Bootstrap core CSS -->
+        {% load bootstrap3 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+		<link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+        <script src="{% static 'js/scripts.js' %}" type="text/javascript"></script>
+
+		{% block head %}
+		{% endblock %}
+	</head>
+	<body>
+        {# Display django.contrib.messages as Bootstrap alerts #}
+        {% bootstrap_messages %}
+
+		<!-- Check this later -->
+		{% comment %}
+        	<div class="container-fluid text-center" style="background-color: #eee;">
+				<h4>TASK MANAGER 2014</h4>
+			</div>
+		{% endcomment %}
+
+		{% block navbar %}{% endblock %}
+
+        {% block container %}	
+		{% endblock %}
+	</body>
+</html>

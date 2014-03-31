@@ -1,35 +1,29 @@
-{% load bootstrap3 %}
+{% extends 'base.html' %}
 
-{# Load CSS and JavaScript #}
+{% block head %}
+	<style>
+		.navbar-default .navbar-nav>li>a {color: white;}
+		.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {background-color: transparent;}
+	</style>
+{% endblock %}
 
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-
-<style>
-	.navbar-default .navbar-nav>li>a {color: white;}
-	.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {background-color: transparent;}
-	.jumbotron {margin-bottom: 0px; padding: 0px;}
-	.newEvent {background-color: #33F;}
-</style>
-
+{% block container %}
 <div class="container-fluid text-center" style="background-color: #eee;">
 	<h4>TASK MANAGER 2014</h4>
 </div>
-<div class="container-fluid jumbotron">
-	<div class="row text-center" style="height: 100%;">
+
+<div class="container-fluid jumbotron homePage">
+	<div class="row">
 		<div class="col-md-4 col-md-offset-5 centered" class="divForm">
 			<form role="form" class="form-horizontal">
 				<div class="form-group">
-					<label for="username" class="col-md-2 control-label">Username</label>
+					<label for="username" class="col-md-3 control-label">Username</label>
 					<div class="col-md-6">
 						<input type="text" class="form-control" id="username" placeholder="Username" name="username">
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="password" class="col-sm-2 control-label">Password</label>
+					<label for="password" class="col-md-3 control-label">Password</label>
 					<div class="col-md-6">
 						<input type="password" class="form-control" id="password" placeholder="Password" name="password">
 					</div>
@@ -44,3 +38,4 @@
 		</div>
 	</div>
 </div>
+{% endblock %}
