@@ -9,3 +9,12 @@ class GroupForm(forms.ModelForm):
 	    	'description': forms.Textarea(),
 	    	'users': forms.CheckboxSelectMultiple()
 	    }
+
+class GroupForm(forms.ModelForm):
+	class Meta:
+	    model = Task
+	    fields = ["name","users" ,"description", "deadline", "group", "priority", "workload"]
+	    widgets = {
+	    	'description': forms.Textarea(),
+	    	'users': forms.CheckboxSelectMultiple()
+	    }

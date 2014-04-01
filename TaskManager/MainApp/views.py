@@ -18,9 +18,12 @@ def home(request):
 	return render_to_response('MainApp/home.html', {'user':request.user})
     
 
+
+
 def ajax_view(function):
+	#decorator function
 	def _view(request, *args, **kwargs):
-		if request.is_ajax():
+		if request.is_ajax() or request.method == 'POST':
 			return function(request, *args, **kwargs)
 		else: 
 			#this could be better
@@ -69,8 +72,23 @@ def groups_view(request, group_id):
 
 @ajax_view
 def tasks(request):
+	task_list = Task.objects.filter(users= request.user)
+	return render_to_response('MainApp/tasks.html', {'user':request.user, 'task_list':task_list})
+
+@ajax_view
+def groups_new(request):
 	
-	return render_to_response('MainApp/tasks.html', {'user':request.user})
+	if request.method == 'POST': # If the form has been submitted...
+		form = TaskForm(request.POST) # A form bound to the POST data
+		if form.is_valid(): # All validation rules pass
+			form.save()
+			return HttpResponseRedirect("/tasks") # Redirect after POST
+	else:
+		form = GroupForm() # An unbound form
+
+	#return render_to_response('MainApp/groups_new.html', context_instance=RequestContext(request, {'form': form}))
+	return render_to_response('MainApp/groups_new.html',{'user':request.user, 'form':form}, context_instance=RequestContext(request)) 
+
 
 @ajax_view	
 def profile(request):

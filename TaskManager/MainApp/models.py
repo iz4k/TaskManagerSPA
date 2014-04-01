@@ -15,9 +15,9 @@ class Task(models.Model):
 	users = models.ManyToManyField(User)
 	description = models.CharField(max_length=300)
 	deadline = models.DateField()
-	group = models.ForeignKey(Group)
-	priority = models.PositiveSmallIntegerField()
-	workload = models.FloatField()
+	group = models.ForeignKey(Group, blank=True, null= True)
+	priority = models.PositiveSmallIntegerField(blank=True, null= True)
+	workload = models.FloatField(blank=True, null= True)
 
 	def __unicode__(self):
 		return unicode(self.name)
