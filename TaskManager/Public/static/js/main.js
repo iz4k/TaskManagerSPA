@@ -1,6 +1,7 @@
 $(function(){
 
 
+
 	$(document).on('click', '.ajax', function(){
 	
 		$('.left-panel').load($(this).attr('href')+' .content');
@@ -12,9 +13,11 @@ $(function(){
 	});
 
 
+
 	window.onpopstate = function(event) {
 		$('.left-panel').load(location.pathname+' .content');
 	}
+
 
 });
 
