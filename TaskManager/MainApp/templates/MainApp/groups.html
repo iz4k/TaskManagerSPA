@@ -1,12 +1,11 @@
+<div class="inner-div content">
+	{# IMPLEMENT THE LIST FOR GROUPS #}
+	<ul>
+	{% for group in group_list %}
+		<li><a href="/groups/{{ group.pk }}/" class="ajax">{{ group.name }}</a></li>
+	{% endfor %}
+	</ul>
+	<a href="/groups_new/" class="ajax">New group</a>
 
-		<div class="inner-div content">
-		{# IMPLEMENT THE LIST FOR GROUPS #}
-		<ul>
-		{% for group in group_list %}
-			<li><a href="/groups/{{ group.pk }}" class="ajax">{{ group.name }}</a></li>
-		{% endfor %}
-		</ul>
-		<a href="/groups_new/" class="ajax">New group</a>
+</div>
 
-		</div>
-		
