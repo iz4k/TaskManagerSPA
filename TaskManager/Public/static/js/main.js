@@ -1,4 +1,7 @@
 $(function(){
+	window.onpopstate = function(event) {
+		$('.left-panel').load(location.pathname);
+	}
 
 	$('.ajax').click(function(){
 		$('.left-panel').load($(this).attr('href')+' .content');
