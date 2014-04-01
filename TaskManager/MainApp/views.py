@@ -20,9 +20,11 @@ def home(request):
 def groups(request):
 
 	if request.user.is_authenticated():
-		
-		group_list = Group.objects.filter(users = request.user)
-		return render_to_response('MainApp/groups.html', {'user':request.user, 'group_list':group_list})
+		if request.is_ajax():
+			group_list = Group.objects.filter(users = request.user)
+			return render_to_response('MainApp/groups.html', {'user':request.user, 'group_list':group_list})
+		else:
+			return HttpResponseRedirect("/")
 	else:
 		#messages.error(request, 'User not authorized.')
 		return HttpResponseRedirect("/login")
@@ -45,14 +47,17 @@ def groups_new(request):
 
 def groups_view(request, group_id):
     if request.user.is_authenticated():
-        user = request.user
-        try:
-        	group = Group.objects.get(id = group_id)
-        except Group.DoesNotExist:
-        	#some sort of error page here?
-        	return HttpResponseRedirect("/")
-        #need to check if user is in group here
-        return render_to_response('MainApp/group.html', {'group':group})
+		if request.is_ajax():
+			user = request.user
+			try:
+				group = Group.objects.get(id = group_id)
+			except Group.DoesNotExist:
+				#some sort of error page here?
+				return HttpResponseRedirect("/")
+			#need to check if user is in group here
+			return render_to_response('MainApp/group.html', {'group':group})
+		else:
+			return HttpResponseRedirect("/")
     else:
         #messages.error(request, 'User not authorized.')
         return HttpResponseRedirect("/login")
