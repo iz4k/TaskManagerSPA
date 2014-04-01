@@ -76,7 +76,7 @@ def tasks(request):
 	return render_to_response('MainApp/tasks.html', {'user':request.user, 'task_list':task_list})
 
 @ajax_view
-def groups_new(request):
+def tasks_new(request):
 	
 	if request.method == 'POST': # If the form has been submitted...
 		form = TaskForm(request.POST) # A form bound to the POST data
@@ -84,10 +84,22 @@ def groups_new(request):
 			form.save()
 			return HttpResponseRedirect("/tasks") # Redirect after POST
 	else:
-		form = GroupForm() # An unbound form
+		form = TaskForm() # An unbound form
 
 	#return render_to_response('MainApp/groups_new.html', context_instance=RequestContext(request, {'form': form}))
-	return render_to_response('MainApp/groups_new.html',{'user':request.user, 'form':form}, context_instance=RequestContext(request)) 
+	return render_to_response('MainApp/tasks_new.html',{'user':request.user, 'form':form}, context_instance=RequestContext(request)) 
+
+@ajax_view
+def tasks_view(request, task_id):
+
+	user = request.user
+	try:
+		task = Task.objects.get(id = task_id)
+	except Task.DoesNotExist:
+		#some sort of error page here?
+		return HttpResponseRedirect("/")
+	#need to check if user is in group here
+	return render_to_response('MainApp/task.html', {'task':task})
 
 
 @ajax_view	

@@ -1,5 +1,5 @@
 <div class="inner-div content">
-	{# IMPLEMENT THE LIST FOR GROUPS #}
+	<h2>My Groups</h2>	
 	<ul>
 	{% for group in group_list %}
 		<li><a href="/groups/{{ group.pk }}/" class="ajax">{{ group.name }}</a></li>

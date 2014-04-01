@@ -1,5 +1,5 @@
 	<div class="inner-div content">
-	<h2>Create a group</h2>
+	<h2>Create a task</h2>
 	<form role="form" class="form-horizontal" action="" method="post">
 		
 			{% csrf_token %}
@@ -24,6 +24,7 @@
 			<div class="form-field">
 				{{form.deadline.errors}}
 				<label for="id_deadline">Deadline:</label>
+				<span>'2006-10-25' or '10/25/2006' or '10/25/06'</span>
 				{{form.deadline}}
 			</div>
 

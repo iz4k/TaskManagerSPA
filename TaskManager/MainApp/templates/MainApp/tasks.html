@@ -1,11 +1,11 @@
 <div class="inner-div content">
-	Tasks for {{user.username}}
+	<h2>My Tasks</h2>
 	<ul>
 	{% for task in task_list %}
 		<li><a href="/tasks/{{ task.pk }}/" class="ajax">{{ task.name }}</a></li>
 	{% endfor %}
 	</ul>
-	
+	<a href="/tasks_new/" class="ajax">New task</a>
 
 </div>
 

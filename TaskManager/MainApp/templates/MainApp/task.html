@@ -1,0 +1,16 @@
+<div class="inner-div content">
+	
+	<h2> {{task.name }} </h2>
+	<p><em>description</em><br>{{task.description}}</p>
+	<p><em>deadline</em><br>{{task.deadline}}</p>
+	<p><em>priority</em><br>{{task.priority}}</p>
+	<p><em>workload</em><br>{{task.workload}}</p>
+	<p><em>group</em><br>{{task.group}}</p>
+	<ul><em>users</em>
+		{% for user in task.users.all %}
+		<li>{{user.username}}</li>
+		{% endfor %}
+	</ul>
+
+	{# NEED TO LIST THE TASKS RELATED #}
+</div>
