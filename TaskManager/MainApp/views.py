@@ -5,10 +5,11 @@ from django.shortcuts import render_to_response, get_object_or_404
 
 from MainApp.models import *
 from main_forms import *
-
+import sys
 def home(request):
 
     if request.user.is_authenticated():
+    	print >>sys.stderr, 'TEST PRINT PLS IGNORE'
         user = request.user
         return render_to_response('MainApp/home.html', {'user':request.user})
     else:
