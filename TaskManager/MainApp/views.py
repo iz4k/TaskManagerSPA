@@ -61,14 +61,28 @@ def groups_new(request):
 @ajax_view
 def groups_view(request, group_id):
 
-	user = request.user
+	#need to check if user is in group here
 	try:
 		group = Group.objects.get(id = group_id)
 	except Group.DoesNotExist:
 		#some sort of error page here?
 		return HttpResponseRedirect("/")
-	#need to check if user is in group here
-	return render_to_response('MainApp/group.html', {'group':group})
+
+	if request.method == 'POST': # If the form has been submitted...
+		form = CommentForm(request.POST) # A form bound to the POST data
+		if form.is_valid(): # All validation rules pass
+			new_comment = form.save(commit = False)
+			new_comment.user = request.user
+			new_comment.task = None
+			new_comment.group = group
+			new_comment.save()
+			return HttpResponseRedirect("/") # Redirect after POST
+	else:
+		form = CommentForm() # An unbound form
+
+	task_list = Task.objects.filter(group = group)
+	comment_list = Comment.objects.filter(group = group)
+	return render_to_response('MainApp/group.html', {'group':group, 'task_list':task_list, 'comment_list':comment_list, 'form':form}, context_instance=RequestContext(request))
 
 @ajax_view
 def tasks(request):
@@ -92,15 +106,39 @@ def tasks_new(request):
 @ajax_view
 def tasks_view(request, task_id):
 
-	user = request.user
+	#need to check if user is in task here
 	try:
 		task = Task.objects.get(id = task_id)
 	except Task.DoesNotExist:
 		#some sort of error page here?
 		return HttpResponseRedirect("/")
-	#need to check if user is in group here
-	return render_to_response('MainApp/task.html', {'task':task})
 
+	if request.method == 'POST': # If the form has been submitted...
+		form = CommentForm(request.POST) # A form bound to the POST data
+		if form.is_valid(): # All validation rules pass
+			new_comment = form.save(commit = False)
+			new_comment.user = request.user
+			new_comment.task = task
+			new_comment.group = None
+			new_comment.save()
+			return HttpResponseRedirect("/") # Redirect after POST
+	else:
+		form = CommentForm() # An unbound form
+	
+	comment_list = Comment.objects.filter(task = task)
+	return render_to_response('MainApp/task.html', {'task':task, 'comment_list':comment_list, 'form':form}, context_instance=RequestContext(request))
+
+
+@ajax_view
+def comment_view(request, comment_id):
+
+	try:
+		comment = Comment.objects.get(id = comment_id)
+	except Comment.DoesNotExist:
+		#some sort of error page here?
+		return HttpResponseRedirect("/")
+	#need to check if user is in group here
+	return render_to_response('MainApp/comment.html', {'comment':comment})
 
 @ajax_view	
 def profile(request):

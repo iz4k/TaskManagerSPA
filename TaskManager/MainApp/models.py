@@ -27,8 +27,5 @@ class Comment(models.Model):
 	comment = models.CharField(max_length=150)
 	created = models.DateTimeField(auto_now_add=True)
 	edited = models.DateTimeField(auto_now=True)
-	task = models.ForeignKey(Task)
-	group = models.ForeignKey(Group)
-
-	def __unicode__(self):
-		return unicode(self.user + "'s comment")
+	task = models.ForeignKey(Task, blank=True, null= True)
+	group = models.ForeignKey(Group, blank=True, null= True)

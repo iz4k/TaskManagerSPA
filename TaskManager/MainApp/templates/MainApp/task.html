@@ -5,12 +5,25 @@
 	<p><em>deadline</em><br>{{task.deadline}}</p>
 	<p><em>priority</em><br>{{task.priority}}</p>
 	<p><em>workload</em><br>{{task.workload}}</p>
-	<p><em>group</em><br>{{task.group}}</p>
+	<p><em>group</em><br><a href="/groups/{{ task.group.pk }}/" class="ajax">{{task.group}}</a></p>
 	<ul><em>users</em>
 		{% for user in task.users.all %}
 		<li>{{user.username}}</li>
 		{% endfor %}
 	</ul>
-
-	{# NEED TO LIST THE TASKS RELATED #}
+	<p>Comments:</p>
+	{% for comment in comment_list %}
+		<li><a href="/comment/{{ comment.pk }}/" class="ajax">{{ comment.comment }}</a></li>
+	{% endfor %}
+	<p>New comment: </p>
+	<form role="form" class="form-horizontal" action="" method="post">
+		{% csrf_token %}
+		<div class="form-field">
+			{{form.comment.errors}}
+				<label for="id_comment">Comment:</label>
+			{{form.comment}}
+		</div>
+		<input type="submit" value="Comment" />
+	    <input type="hidden" name="next" value="{{ next|escape }}" />
+	</form>
 </div>

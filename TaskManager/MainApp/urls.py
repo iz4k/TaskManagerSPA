@@ -8,5 +8,6 @@ urlpatterns = patterns('',
     url(r'^tasks/$', views.tasks),
     url(r'^tasks/(?P<task_id>[0-9])/$', views.tasks_view),   
     url(r'^tasks_new/', views.tasks_new),
-    url(r'^profile/$', views.profile)
+    url(r'^profile/$', views.profile),
+    url(r'^comment/(?P<comment_id>[0-9])/$', views.comment_view)
 )

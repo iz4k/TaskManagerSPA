@@ -20,3 +20,11 @@ class TaskForm(forms.ModelForm):
 	    	'users': forms.CheckboxSelectMultiple()
 	    	# 'deadline': forms.DateField()
 	    }
+
+class CommentForm(forms.ModelForm):
+	class Meta:
+		model = Comment
+		fields = ["comment"]
+		widgets = {
+			'comment': forms.Textarea()
+		}

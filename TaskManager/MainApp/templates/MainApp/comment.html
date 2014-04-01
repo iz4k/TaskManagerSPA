@@ -1,0 +1,11 @@
+<div class="inner-div content">
+	
+	<h2> Comment </h2>
+	<p><em>User</em><br>{{comment.user}}</p>
+	<p><em>Comment</em><br>{{comment.comment}}</p>
+	<p><em>created</em><br>{{comment.created}}</p>
+	<p><em>edited</em><br>{{comment.edited}}</p>
+	<p><em>task</em><br><a href="/tasks/{{ comment.task.pk }}/" class="ajax">{{comment.task}}</a></p>
+	<p><em>group</em><br><a href="/groups/{{ comment.group.pk }}/" class="ajax">{{comment.group}}</a></p>
+
+</div>
