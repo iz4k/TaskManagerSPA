@@ -8,7 +8,7 @@
 	<p><em>group</em><br><a href="/groups/{{ task.group.pk }}/" class="ajax">{{task.group}}</a></p>
 	<ul><em>users</em>
 		{% for user in task.users.all %}
-		<li>{{user.username}}</li>
+		<li><a href="/profile/{{ user.pk }}/" class="ajax">{{user.username}}</a></li>
 		{% endfor %}
 	</ul>
 	<p>Comments:</p>

@@ -4,7 +4,7 @@
 	<p><em>description</em><br>{{group.description}}</p>
 	<ul><em>users</em>
 		{% for user in group.users.all %}
-		<li>{{user.username}}</li>
+		<li><a href="/profile/{{ user.pk }}/" class="ajax">{{user.username}}</a></li>
 		{% endfor %}
 	</ul>
 	<p>Tasks:</p>

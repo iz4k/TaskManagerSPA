@@ -144,4 +144,16 @@ def comment_view(request, comment_id):
 def profile(request):
 	group_list = Group.objects.filter(users = request.user)
 	return render_to_response('MainApp/profile.html', {'user':request.user})
+
+@ajax_view
+def user_view(request, user_id):
+	try:
+		user = User.objects.get(id = user_id)
+	except User.DoesNotExist:
+		#some sort of error page here?
+		return HttpResponseRedirect("/")
+	#need to check if user is in group here
+	
+	group_list = Group.objects.filter(users = user)
+	return render_to_response('MainApp/user.html', {'user':user, 'group_list': group_list})
 	
