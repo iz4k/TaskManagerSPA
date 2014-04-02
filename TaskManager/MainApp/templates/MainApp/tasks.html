@@ -1,11 +1,24 @@
 <div class="inner-div content">
-	<h2>My Tasks</h2>
-	<ul>
+	<a href="/tasks_new/" class="ajax btn btn-default">Create a new task</a>
+	<div class="row">
 	{% for task in task_list %}
-		<li><a href="/tasks/{{ task.pk }}/" class="ajax">{{ task.name }}</a></li>
+		<div class="cold-md-12 event">
+			<h4>{{task.name}}</h4>
+
+			<span>
+			Deadline: {{task.deadline}} 
+			{% if task.priority %}, Priority: {{task.priority}}{% endif %}
+			{% if task.workload %}, Workload: {{task.workload}}{% endif %}  
+			</span>
+			<p class="fadez">{{task.description}}</p>
+			<a href="/tasks/{{ task.pk }}/" class="ajax read-more">Read more</a>
+			<!--TODO -->
+			<p class="comment-nr">X comments</p>
+		</div>
 	{% endfor %}
-	</ul>
-	<a href="/tasks_new/" class="ajax">New task</a>
+	</div>
+	
+	
 
 </div>
 

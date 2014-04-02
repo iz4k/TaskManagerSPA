@@ -1,10 +1,17 @@
 <div class="inner-div content">
-	<h2>My Groups</h2>	
-	<ul>
+	<a href="/groups_new/" class="ajax btn btn-default">Create a new group</a>
+	<div class="row">
 	{% for group in group_list %}
-		<li><a href="/groups/{{ group.pk }}/" class="ajax">{{ group.name }}</a></li>
+		<div class="cold-md-12 event">
+			<h4>{{group.name}}</h4>
+
+			<p class="fadez">{{group.description}}</p>
+			<a href="/groups/{{ group.pk }}/" class="ajax read-more">Read more</a>
+			<!--TODO -->
+			<p class="comment-nr">X open tasks</p> 
+		</div>
 	{% endfor %}
-	</ul>
-	<a href="/groups_new/" class="ajax">New group</a>
+	</div>
+	
 
 </div>
