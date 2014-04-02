@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+<!-- {% block head %}
+<script>	
+	$(function(){
+		$('.left-panel').load(location.pathname+' .content');
+	});
+</script>
+{% endblock %} -->
+
+{% block pagetitle %}Home{% endblock %}
+
+{% block navbar %}
+	{% include "navbar.html" %}
+{% endblock %}
+
+{% block left-panel %}
+{{content}}
+{%endblock%}
+
+
+
