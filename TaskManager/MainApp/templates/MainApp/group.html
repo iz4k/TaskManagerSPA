@@ -1,31 +1,58 @@
 <div class="inner-div content">
 	
-	<h2> {{group.name }} </h2>
-	<p><em>description</em><br>{{group.description}}</p>
-	<ul><em>users</em>
+	<h2> Group: {{group.name }} </h2>
+	<div class="section">
+	<p class="description">{{group.description}}</p>
+	<small>Participants:
 		{% for user in group.users.all %}
-		<li><a href="/profile/{{ user.pk }}/" class="ajax">{{user.username}}</a></li>
+			<a href="/profile/{{ user.pk }}/" class="ajax">{{user.username}}</a>&nbsp;
 		{% endfor %}
-	</ul>
-	<p>Tasks:</p>
+	</small>
+	</div>
+	<h3><small>Tasks</small></h3>
+	<div class="section">
 	{% for task in task_list %}
-		<li><a href="/tasks/{{ task.pk }}/" class="ajax">{{ task.name }}</a></li>
-	{% endfor %}
-	<a href="/groups_new/" class="ajax">New group</a>
-	<p>Comments:</p>
-	{% for comment in comment_list %}
-		<li><a href="/comment/{{ comment.pk }}/" class="ajax">{{ comment.comment }}</a></li>
-	{% endfor %}
-	<p>New comment: </p>
-	<form role="form" class="form-horizontal" action="" method="post">
-		{% csrf_token %}
-		<div class="form-field">
-			{{form.comment.errors}}
-				<label for="id_comment">Comment:</label>
-			{{form.comment}}
+		<div class="cold-md-12 event">
+			<h4>{{task.name}}</h4>
+
+			<span>
+			Deadline: {{task.deadline}} 
+			{% if task.priority %}, Priority: {{task.priority}}{% endif %}
+			{% if task.workload %}, Workload: {{task.workload}}{% endif %}  
+			</span>
+			<p class="fadez">{{task.description}}</p>
+			<a href="/tasks/{{ task.pk }}/" class="ajax read-more">Read more</a>
+			<!--TODO -->
+			<p class="comment-nr">X comments</p>
 		</div>
-		<input type="submit" value="Comment" />
-	    <input type="hidden" name="next" value="{{ next|escape }}" />
-	</form>
+	{% endfor %}
+	<a href="/tasks_new/" class="ajax btn btn-default">Create a new task</a>
+	</div>
+
+	<h3><small>Comments</small></h3>
+	<div class="section">
+		<form role="form" class="form-horizontal" action="" method="post">
+			{% csrf_token %}
+			<div class="form-field">
+				{{form.comment.errors}}
+					
+				{{form.comment}}
+			</div>
+			<input type="submit" value="Add Comment" />
+		    <input type="hidden" name="next" value="{{ next|escape }}" />
+		</form>
+
+		{% for comment in comment_list %}
+			<div class="cold-md-12 event">
+				
+				<p class="comment">{{ comment.comment }}</p>
+				{# <a href="/comment/{{ comment.pk }}/" class="ajax">{{ comment.comment }}</a> #}
+				<span>
+				Posted by: {{comment.user.username}}, {{comment.created}} 
+				{% if comment.edited < comment.created %}, edited: {{comment.edited}} {% endif %}
+				</span>
+			</div>
+		{% endfor %}
+	</div>
 	{# NEED TO LIST THE TASKS RELATED #}
 </div>
