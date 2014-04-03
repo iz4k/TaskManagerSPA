@@ -19,14 +19,11 @@ def ajax_view(function):
 		if request.is_ajax():
 			return HttpResponse(response);
 		else: 
-			#this could be better
 			return render_to_response('MainApp/main.html',{'user':request.user, 'content':response})
 
 
 	return _view	
 
-# def main(request, content):
-# 	return 
 
 
 @login_required
@@ -39,9 +36,7 @@ def home(request):
 
 @login_required
 @ajax_view
-def groups(request):
-
-	
+def groups(request):	
 	group_list = Group.objects.filter(users = request.user)
 	return render_to_string('MainApp/groups.html', {'user':request.user, 'group_list':group_list})
 	
@@ -54,10 +49,8 @@ def groups_new(request):
 		form = GroupForm(request.POST) # A form bound to the POST data
 		if form.is_valid(): # All validation rules pass
 			form.save()
-			print >>sys.stderr, 'SAVERED'
 			return groups(request)# Redirect after POST
 	else:
-		print >>sys.stderr, 'GOING FOR NEW FORM'
 		form = GroupForm() # An unbound form
 	
 	#return render_to_response('MainApp/groups_new.html', context_instance=RequestContext(request, {'form': form}))
