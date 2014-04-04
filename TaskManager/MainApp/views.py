@@ -50,7 +50,7 @@ def groups_new(request):
 		form = GroupForm(request.POST) # A form bound to the POST data
 		if form.is_valid(): # All validation rules pass
 			form.save()
-			return HttpResponseRedirect("/groups") # Redirect after POST
+			
 	else:
 		form = GroupForm() # An unbound form
 
@@ -96,7 +96,6 @@ def tasks_new(request):
 		form = TaskForm(request.POST) # A form bound to the POST data
 		if form.is_valid(): # All validation rules pass
 			form.save()
-			return HttpResponseRedirect("/tasks") # Redirect after POST
 	else:
 		form = TaskForm() # An unbound form
 
@@ -121,7 +120,6 @@ def tasks_view(request, task_id):
 			new_comment.task = task
 			new_comment.group = None
 			new_comment.save()
-			return HttpResponseRedirect("/") # Redirect after POST
 	else:
 		form = CommentForm() # An unbound form
 	
