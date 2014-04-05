@@ -1,52 +1,47 @@
 	<div class="inner-div content">
-	<h2>Create a task</h2>
-	<form id="form-task" role="form" class="form-horizontal" action="" method="post">
+	<h2 class="text-center">Create a task</h2>
+	<form id="form-task" role="form" action="" method="post">
 		
 			{% csrf_token %}
-			<div class="form-field">
+			<div class="form-group">
 				{{form.name.errors}}
 				<label for="id_name">Name:</label>
 				{{form.name}}
 			</div>
-			<div class="form-field">
-				{{form.users.errors}}
-				<label for="id_users">Users:</label>
-				{{form.users}}
-			</div>
-		
-
-				<div class="form-field">
+			<div class="form-group">
 				{{form.description.errors}}
 				<label for="id_description">Description:</label>
 				{{form.description}}
 			</div>
-
-			<div class="form-field">
-				{{form.deadline.errors}}
-				<label for="id_deadline">Deadline:</label>
-				<span>'2006-10-25' or '10/25/2006' or '10/25/06'</span>
-				{{form.deadline}}
-			</div>
-
-			<div class="form-field">
+			<div class="form-group">
 				{{form.group.errors}}
 				<label for="id_group">group:</label>
 				{{form.group}}
 			</div>
-
-			<div class="form-field">
+			<div class="form-group">
+				{{form.users.errors}}
+				<label for="id_users">Users:</label>
+				{{form.users}}
+			</div>
+			<div class="form-group">
+				{{form.deadline.errors}}
+				<label for="id_deadline">Deadline:</label>
+				<span class="help-block">'2006-10-25' or '10/25/2006' or '10/25/06'</span>
+				{{form.deadline}}
+			</div>
+			<div class="form-group">
 				{{form.priority.errors}}
 				<label for="id_priority">priority:</label>
 				{{form.priority}}
 			</div>
 
-			<div class="form-field">
+			<div class="form-group">
 				{{form.workload.errors}}
 				<label for="id_workload">workload:</label>
 				{{form.workload}}
 			</div>
 
-		    <input type="submit" value="Create" />
+		    <input class="button btn-default btn-block" type="submit" value="Create" />
 		    <input type="hidden" name="next" value="{{ next|escape }}" />
 		
  	</form>
