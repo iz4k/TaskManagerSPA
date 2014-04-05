@@ -13,15 +13,34 @@ $(function(){
 	});
 
 	$(document).on('submit', '#form-group', function(){
-		$.post('/groups_new/', $(this).serialize(), function(){
-			$('.left-panel').load('/groups/ .content');
+		var data =  $(this).serialize();
+		$.post('/groups_new/', data, function(){
+			history.back();
+		})
+
+		.fail(function(data) {
+			var errors = $.parseJSON(data.responseText);
+			for (error in errors) {
+			var id = '#id_' + error;
+				$(id).parent('div').append(errors[error]);
+			}
+
 		});
+		  
+		
+		 
         return false;
 	});
 
+
 	$(document).on('submit', '#form-task', function(){
 		$.post('/tasks_new/', $(this).serialize(), function(){
-			$('.left-panel').load('/tasks/ .content');
+			history.back();
+		})
+
+		.fail(function(data) {
+			errorHandle(data);
+
 		});
         return false;
 	});
@@ -32,6 +51,15 @@ $(function(){
 		var url = '/'+variety+'/'+id+'/';
 		$.post(url, $(this).serialize(), function(){
 			$('.left-panel').load(url + ' .content');
+		})
+
+		.fail(function(data) {
+			var errors = $.parseJSON(data.responseText);
+			for (error in errors) {
+			var id = '#id_' + error;
+				$(id).parent('div').append(errors[error]);
+			}
+
 		});
         return false;
 	});
@@ -41,6 +69,13 @@ $(function(){
 		$('.left-panel').load(location.pathname+' .content');
 	}
 
+	function errorHandle (data) {
+		var errors = $.parseJSON(data.responseText);
+		for (error in errors) {
+		var id = '#id_' + error;
+			$(id).parent('div').append(errors[error]);
+		}
+	}
 
 });
 
