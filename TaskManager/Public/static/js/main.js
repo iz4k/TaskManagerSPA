@@ -19,11 +19,7 @@ $(function(){
 		})
 
 		.fail(function(data) {
-			var errors = $.parseJSON(data.responseText);
-			for (error in errors) {
-			var id = '#id_' + error;
-				$(id).parent('div').append(errors[error]);
-			}
+			errorHandle(data);
 
 		});
 		  
@@ -54,11 +50,7 @@ $(function(){
 		})
 
 		.fail(function(data) {
-			var errors = $.parseJSON(data.responseText);
-			for (error in errors) {
-			var id = '#id_' + error;
-				$(id).parent('div').append(errors[error]);
-			}
+			errorHandle(data);
 
 		});
         return false;
