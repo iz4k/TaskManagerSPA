@@ -5,7 +5,7 @@
 	<p><em>Comment</em><br>{{comment.comment}}</p>
 	<p><em>created</em><br>{{comment.created}}</p>
 	<p><em>edited</em><br>{{comment.edited}}</p>
-	<p><em>task</em><br><a href="/tasks/{{ comment.task.pk }}/" class="ajax">{{comment.task}}</a></p>
-	<p><em>group</em><br><a href="/groups/{{ comment.group.pk }}/" class="ajax">{{comment.group}}</a></p>
+	<p><em>task</em><br><a href="{{ comment.task.get_absolute_url }}" class="ajax">{{comment.task}}</a></p>
+	<p><em>group</em><br><a href="{{ comment.group.get_absolute_url }}" class="ajax">{{comment.group}}</a></p>
 
 </div>

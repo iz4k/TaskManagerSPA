@@ -3,6 +3,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest 
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 from MainApp.models import *
 from main_forms import *
@@ -16,7 +17,14 @@ import json
 def home(request):
 	print >>sys.stderr, 'TEST PRINT PLS IGNORE'
 	user = request.user
-	return render_to_response('MainApp/home.html', {'user':request.user})
+	groups = Group.objects.filter(users = request.user).order_by('-created')[:10]
+	tasks = Task.objects.filter(users= request.user).order_by('-created')[:10]
+	comments = Comment.objects.filter(Q(group__in=groups) | Q(task__in=tasks)).order_by('-created')[:10]
+
+	latest = list(groups) + list(tasks) +list(comments)
+	latest_sorted = sorted(latest, key=lambda x: x.created, reverse=True)[:10]
+	
+	return render_to_response('MainApp/home.html', {'user':request.user, 'latest':latest_sorted})
     
 
 

@@ -6,7 +6,7 @@
 			<h4>{{group.name}}</h4>
 
 			<p class="fadez">{{group.description}}</p>
-			<a href="/groups/{{ group.pk }}/" class="ajax read-more">Read more</a>
+			<a href="{{ group.get_absolute_url }}" class="ajax read-more">Read more</a>
 			<!--TODO -->
 			<p class="comment-nr">X open tasks</p> 
 		</div>

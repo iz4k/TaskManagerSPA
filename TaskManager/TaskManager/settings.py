@@ -96,6 +96,11 @@ STATIC_ROOT = 'staticfiles'
 
 STATIC_URL = '/s/'
 
+
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: "/profile/%s/" % u.id,
+}
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'public/static'),
 )
