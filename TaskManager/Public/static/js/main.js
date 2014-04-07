@@ -14,14 +14,9 @@ $(function(){
 		$.post('/groups_new/', data, function(){
 			history.back();
 		})
-
 		.fail(function(data) {
 			errorHandle(data);
-
 		});
-		  
-		
-		 
         return false;
 	});
 
@@ -30,10 +25,8 @@ $(function(){
 		$.post('/tasks_new/', $(this).serialize(), function(){
 			history.back();
 		})
-
 		.fail(function(data) {
 			errorHandle(data);
-
 		});
         return false;
 	});
@@ -68,7 +61,21 @@ $(function(){
 
 	// Calendar initialization
 	$('#calendar').fullCalendar({
-	})
+		events: [
+			{
+				title  : 'event1',
+				start  : '2014-04-01'
+			},
+			{
+				title  : 'event2',
+				start  : '2014-04-12',
+				end    : '2014-04-15'
+			},
+		    {
+				title  : 'event3',
+				start  : '2014-04-09 12:30:00',
+				allDay : false // will make the time show
+		    }
+	    ]
+	});
 });
-
-
