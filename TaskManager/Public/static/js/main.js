@@ -1,7 +1,4 @@
 $(function(){
-
-
-
 	$(document).on('click', '.ajax', function(){
 	
 		$('.left-panel').load($(this).attr('href')+' .content');
@@ -69,6 +66,9 @@ $(function(){
 		}
 	}
 
+	// Calendar initialization
+	$('#calendar').fullCalendar({
+	})
 });
 
 
