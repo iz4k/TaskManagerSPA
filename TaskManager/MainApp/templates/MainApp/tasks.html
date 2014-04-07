@@ -11,7 +11,7 @@
 			{% if task.workload %}, Workload: {{task.workload}}{% endif %}  
 			</span>
 			<p class="fadez">{{task.description}}</p>
-			<a href="/tasks/{{ task.pk }}/" class="ajax read-more">Read more</a>
+			<a href="{{ task.get_absolute_url }}" class="ajax read-more">Read more</a>
 			<!--TODO -->
 			<p class="comment-nr">X comments</p>
 		</div>
