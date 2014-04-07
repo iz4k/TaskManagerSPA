@@ -9,17 +9,12 @@ from main_forms import *
 import sys
 import json
 
-
-
-
 @login_required
 def home(request):
 	print >>sys.stderr, 'TEST PRINT PLS IGNORE'
 	user = request.user
-	return render_to_response('MainApp/home.html', {'user':request.user})
-    
-
-
+	task_list = Task.objects.filter(users = request.user)
+	return render_to_response('MainApp/home.html', {'user':request.user, 'task_list':task_list})
 
 def ajax_view(function):
 	#decorator function
@@ -32,21 +27,13 @@ def ajax_view(function):
 
 	return _view	
 
-
-
-
 @ajax_view
 def groups(request):
-
-	
 	group_list = Group.objects.filter(users = request.user)
 	return render_to_response('MainApp/groups.html', {'user':request.user, 'group_list':group_list})
-	
-		
 
 @ajax_view
 def groups_new(request):
-	
 	if request.method == 'POST': # If the form has been submitted...
 		form = GroupForm(request.POST) # A form bound to the POST data
 		if form.errors:
@@ -54,7 +41,6 @@ def groups_new(request):
 			return HttpResponseBadRequest(errorjson)
 		if form.is_valid(): # All validation rules pass
 			form.save()
-			
 	else:
 		form = GroupForm() # An unbound form
 
@@ -64,7 +50,6 @@ def groups_new(request):
 	
 @ajax_view
 def groups_view(request, group_id):
-
 	#need to check if user is in group here
 	try:
 		group = Group.objects.get(id = group_id)
@@ -93,12 +78,11 @@ def groups_view(request, group_id):
 
 @ajax_view
 def tasks(request):
-	task_list = Task.objects.filter(users= request.user)
+	task_list = Task.objects.filter(users = request.user)
 	return render_to_response('MainApp/tasks.html', {'user':request.user, 'task_list':task_list})
 
 @ajax_view
 def tasks_new(request):
-	
 	if request.method == 'POST': # If the form has been submitted...
 		form = TaskForm(request.POST) # A form bound to the POST data
 		if form.errors:
@@ -114,7 +98,6 @@ def tasks_new(request):
 
 @ajax_view
 def tasks_view(request, task_id):
-
 	#need to check if user is in task here
 	try:
 		task = Task.objects.get(id = task_id)
@@ -142,7 +125,6 @@ def tasks_view(request, task_id):
 
 @ajax_view
 def comment_view(request, comment_id):
-
 	try:
 		comment = Comment.objects.get(id = comment_id)
 	except Comment.DoesNotExist:
