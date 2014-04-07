@@ -7,7 +7,8 @@ class GroupForm(forms.ModelForm):
 	    model = Group
 	    fields = ["name", "description", "users"]
 	    widgets = {
-	    	'description': forms.Textarea(),
+			'name' : forms.TextInput(attrs={'class':'form-control'}),
+	    	'description': forms.Textarea(attrs={'class':'form-control', 'rows':'5'}),
 	    	'users': forms.CheckboxSelectMultiple()
 	    }
 
@@ -16,9 +17,10 @@ class TaskForm(forms.ModelForm):
 	    model = Task
 	    fields = ["name","users" ,"description", "deadline", "group", "priority", "workload"]
 	    widgets = {
-	    	'description': forms.Textarea(),
+	    	'name' : forms.TextInput(attrs={'class':'form-control'}),
+	    	'description': forms.Textarea(attrs={'class':'form-control', 'rows':'5'}),
 	    	'users': forms.CheckboxSelectMultiple()
-	    	# 'deadline': forms.DateField()
+	    	#'deadline': forms.DateField()
 	    }
 
 class CommentForm(forms.ModelForm):

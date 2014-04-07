@@ -31,23 +31,7 @@ html, body {padding, margin:0;height:100%;}
 .msgLow {border: solid 1px yellow;}
 .msgHigh {border: solid 1px red;}
 
-.form-field{
-	/*background-color: green;*/
-}
-.form-field label{
-	font-weight: 100;
-	display: block;
-	padding: 1em;
-}
-.form-field  ul label{
-	padding: 0;
-}
-.form-field input[type='text'], .form-field textarea{
-	width:70%;
-}
-.form-field ul li{
-	list-style: none;
-}
+
 input[type='submit']{
 	margin: 0.5em 0;
 	width: 20%;
@@ -55,9 +39,9 @@ input[type='submit']{
 	padding: 0;
 }
 form:after{
-	content: "";
+	content:"";
 	display: table;
-	clear: both;
+	clear: both; 
 }
 .btn-default{
 	width:100%;
@@ -122,6 +106,7 @@ form:after{
 	float:right;
 	margin-bottom: 0;
 	color:#A8A8A8;
+	border-bottom: 0;
 }
 .description{
 	font-size:40px;

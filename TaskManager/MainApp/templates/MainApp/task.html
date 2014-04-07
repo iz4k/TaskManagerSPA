@@ -19,7 +19,7 @@
 	</div>
 	<h3><small>Comments</small></h3>
 	<div class="section">
-		<form role="form" class="form-horizontal" action="" method="post">
+		<form id="form-comment" role="form" variety="tasks" nro="{{task.pk}}" action="" method="post">
 			{% csrf_token %}
 			<div class="form-field">
 				{{form.comment.errors}}
@@ -43,3 +43,4 @@
 		{% endfor %}
 	</div>
 </div>
+

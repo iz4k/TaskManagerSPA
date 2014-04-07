@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.template import RequestContext
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest 
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from MainApp.models import *
 from main_forms import *
 import sys
+import json
 
 
 
@@ -48,9 +49,12 @@ def groups_new(request):
 	
 	if request.method == 'POST': # If the form has been submitted...
 		form = GroupForm(request.POST) # A form bound to the POST data
+		if form.errors:
+			errorjson = send_errors(form.errors)
+			return HttpResponseBadRequest(errorjson)
 		if form.is_valid(): # All validation rules pass
 			form.save()
-			return HttpResponseRedirect("/groups") # Redirect after POST
+			
 	else:
 		form = GroupForm() # An unbound form
 
@@ -70,6 +74,9 @@ def groups_view(request, group_id):
 
 	if request.method == 'POST': # If the form has been submitted...
 		form = CommentForm(request.POST) # A form bound to the POST data
+		if form.errors:
+			errorjson = send_errors(form.errors)
+			return HttpResponseBadRequest(errorjson)
 		if form.is_valid(): # All validation rules pass
 			new_comment = form.save(commit = False)
 			new_comment.user = request.user
@@ -94,9 +101,11 @@ def tasks_new(request):
 	
 	if request.method == 'POST': # If the form has been submitted...
 		form = TaskForm(request.POST) # A form bound to the POST data
+		if form.errors:
+			errorjson = send_errors(form.errors)
+			return HttpResponseBadRequest(errorjson)
 		if form.is_valid(): # All validation rules pass
 			form.save()
-			return HttpResponseRedirect("/tasks") # Redirect after POST
 	else:
 		form = TaskForm() # An unbound form
 
@@ -115,13 +124,15 @@ def tasks_view(request, task_id):
 
 	if request.method == 'POST': # If the form has been submitted...
 		form = CommentForm(request.POST) # A form bound to the POST data
+		if form.errors:
+			errorjson = send_errors(form.errors)
+			return HttpResponseBadRequest(errorjson)
 		if form.is_valid(): # All validation rules pass
 			new_comment = form.save(commit = False)
 			new_comment.user = request.user
 			new_comment.task = task
 			new_comment.group = None
 			new_comment.save()
-			return HttpResponseRedirect("/") # Redirect after POST
 	else:
 		form = CommentForm() # An unbound form
 	
@@ -157,3 +168,9 @@ def user_view(request, user_id):
 	group_list = Group.objects.filter(users = user)
 	return render_to_response('MainApp/user.html', {'user':user, 'group_list': group_list})
 	
+def send_errors(errors):
+	errors_dict = {}
+	for error in errors:
+		e = errors[error]
+		errors_dict[error] = unicode(e)
+	return json.dumps(errors_dict)
