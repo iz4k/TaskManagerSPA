@@ -6,6 +6,7 @@ class Group(models.Model):
 	name = models.CharField(max_length=50)
 	description = models.CharField(max_length=300)
 	users = models.ManyToManyField(User)
+	created = models.DateTimeField(auto_now_add=True)
 
 	def __unicode__(self):
 		return unicode(self.name)
@@ -18,6 +19,7 @@ class Task(models.Model):
 	group = models.ForeignKey(Group, blank=True, null= True)
 	priority = models.PositiveSmallIntegerField(blank=True, null= True)
 	workload = models.FloatField(blank=True, null= True)
+	created = models.DateTimeField(auto_now_add=True)
 
 	def __unicode__(self):
 		return unicode(self.name)
