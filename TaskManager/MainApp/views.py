@@ -167,18 +167,16 @@ def calendarjson(request):
     except Task.DoesNotExist:
 	return HttpResponseRedirect("/")
 
-   # newArray = []
-    #for i in task:
-      #  tmpDict = {}
-      #  tmpDict['title'] = i.name
-      #  tmpDict['start'] = time.mktime(i.deadline.timetuple())
-     #   tmpDict['url'] = "http://localhost:8888/event/" + i.name
-    #    newArray.append(tmpDict)
+    newArray = []
+    for i in task:
+        tmpDict = {}
+        tmpDict['title'] = i.name
+        tmpDict['start'] = time.mktime(i.deadline.timetuple())
+        tmpDict['url'] = "http://localhost:8888/event/" + i.name
+        newArray.append(tmpDict)
 
     newDict = {}
-    newDict['events'] = {}
-    newDict['events']['title'] = "teste"
-    newDict['events']['start'] = "2014-04-12"
+    newDict = newArray
 
     resp = json.dumps(newDict)
     if 'callback' in request.REQUEST:

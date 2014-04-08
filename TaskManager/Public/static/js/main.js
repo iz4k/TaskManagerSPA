@@ -82,16 +82,13 @@ $(function(){
 					end: Math.round(end.getTime() / 1000)
 				},
 				success: function(doc) {
-					console.log(doc);
 					var events = [];
-					$(doc).find('event').each(function() {
-						alert($(this).attr('title'));
+					$(doc).each(function() {
 						events.push({
 							title: $(this).attr('title'),
 							start: $(this).attr('start') // will be parsed
 						});
 					});
-					console.log(doc);
 					callback(events);
 				}
 			});
