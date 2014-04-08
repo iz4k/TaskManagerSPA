@@ -10,5 +10,6 @@ urlpatterns = patterns('',
     url(r'^tasks_new/', views.tasks_new),
     url(r'^profile/$', views.profile),
     url(r'^profile/(?P<user_id>[0-9])/$', views.user_view),
-    url(r'^comment/(?P<comment_id>[0-9])/$', views.comment_view)
+    url(r'^comment/(?P<comment_id>[0-9])/$', views.comment_view),
+    url(r'^small_task_list/$', views.small_task_list),
 )

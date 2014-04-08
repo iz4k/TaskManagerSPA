@@ -1,4 +1,5 @@
 $(function(){
+	$('.right-up-panel').load('/small_task_list/ .content');
 	$(document).on('click', '.ajax', function(){
 	
 		$('.left-panel').load($(this).attr('href')+' .content');

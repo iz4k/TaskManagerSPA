@@ -163,6 +163,12 @@ def user_view(request, user_id):
 	group_list = Group.objects.filter(users = user)
 	return render_to_response('MainApp/user.html', {'user':user, 'group_list': group_list})
 	
+@ajax_view
+def small_task_list(request):
+	task_list = Task.objects.filter(users = request.user).order_by('deadline')[:6]
+	return render_to_response('MainApp/small_task_list.html', {'task_list':task_list})
+
+
 def send_errors(errors):
 	errors_dict = {}
 	for error in errors:
