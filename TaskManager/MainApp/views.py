@@ -23,11 +23,8 @@ def home(request):
 
 	latest = list(groups) + list(tasks) +list(comments)
 	latest_sorted = sorted(latest, key=lambda x: x.created, reverse=True)[:10]
-	
+
 	return render_to_response('MainApp/home.html', {'user':request.user, 'latest':latest_sorted, 'task_list':task_list})
-    
-
-
 
 def ajax_view(function):
 	#decorator function

@@ -6,10 +6,8 @@
 	{% include "navbar.html" %}
 {% endblock %}
 
-
-	{% block left-panel %}
-		
-		<div class="inner-div content">
+{% block left-panel %}		
+	<div class="inner-div content">
 		{% for event in latest %}
 			<div class="cold-md-10 event">
 				{% if event.type == "group"%}
@@ -22,7 +20,7 @@
 					 was created.
 				{% elif event.type == "comment"%}
 					{% if event.task %}
-						New comment in task<a href='{{event.task.get_absolute_url}}' class='ajax'> <b>{{event.task.name}}</b></a>
+						New comment in task <a href='{{event.task.get_absolute_url}}' class='ajax'><b>{{event.task.name}}</b></a>
 					{% elif event.group %}
 						New comment in group <a href ='{{event.group.get_absolute_url}}' class='ajax'><b>{{event.group.name}}</b></a>
 					{% endif %}
@@ -31,33 +29,5 @@
 		{% empty %}
 			No new events were found.
 		{% endfor %}
-		</div>
-		{% endblock %}
-
-<div class="cold-md-10 event">
-				New comment on task '1'
-			</div>
-			<div class="cold-md-10 event">
-				You marked 'Y' as done 
-			</div>
-			<div class="cold-md-10 event">
-					New comment on task 'xz'
-			</div>
-			<div class="cold-md-10 event">
-				Task 'xz' was created
-			</div>
-			<div class="cold-md-10 event">
-				New contributors on 'Y'
-			</div>
-			<div class="cold-md-10 event">
-				New comment on 'Y'
-			</div>
-			<div class="cold-md-10 event">
-				New sub-objective for 'Y'
-			</div>
-			<div class="cold-md-10 event">
-				Gavin, Mark and Steve joined group 'Z'
-			</div>
-			<div class="cold-md-10 event">
-				You joined goup 'Z'
-			</div>
+	</div>
+{% endblock %}

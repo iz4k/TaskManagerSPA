@@ -74,7 +74,8 @@ $(function(){
 		    {
 				title  : 'event3',
 				start  : '2014-04-09 12:30:00',
-				allDay : false // will make the time show
+				allDay : false,
+				url    : 'http://www.google.com.br'
 		    }
 	    ]
 	});
