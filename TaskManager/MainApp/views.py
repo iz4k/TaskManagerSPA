@@ -163,7 +163,7 @@ def user_view(request, user_id):
 
 @ajax_view
 def small_task_list(request):
-	task_list = Task.objects.filter(users = request.user).order_by('deadline')[:6]
+	task_list = Task.objects.filter(users = request.user).order_by('-deadline')[:6]
 	return render_to_response('MainApp/small_task_list.html', {'task_list':task_list})
 
 def send_errors(errors):

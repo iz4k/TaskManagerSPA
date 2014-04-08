@@ -20,7 +20,7 @@ html, body {padding, margin:0;height:100%;}
 .navbar-default .navbar-nav>li>a {color: white;}
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {background-color: transparent;}
 .jumbotron {margin-bottom: 0px; padding: 0px;}
-.left-panel, .right-panel {border-right: solid 1px #333; padding: 52px 0px 0px 0px; height:100%;overflow: auto;}
+.left-panel, .right-panel {border-right: solid 1px #333; padding: 0px 0px 0px 0px; height:100%;overflow: auto;}
 .left-panel {border-left: solid 1px #333;}
 .custom-panel {height: 50%;}
 .outer-div {padding: 0px; margin: 0px;}
@@ -31,7 +31,9 @@ html, body {padding, margin:0;height:100%;}
 .msgLow {border: solid 1px yellow;}
 .msgHigh {border: solid 1px red;}
 
-
+.right-up-panel{
+	overflow: auto;
+}
 input[type='submit']{
 	margin: 0.5em 0;
 	width: 20%;
