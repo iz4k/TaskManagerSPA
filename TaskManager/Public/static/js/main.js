@@ -1,6 +1,5 @@
 $(function(){
 	$(document).on('click', '.ajax', function(){
-	
 		$('.left-panel').load($(this).attr('href')+' .content');
 
 		$('.active').removeClass('active');
@@ -24,6 +23,7 @@ $(function(){
 	$(document).on('submit', '#form-task', function(){
 		$.post('/tasks_new/', $(this).serialize(), function(){
 			history.back();
+			$('#calendar').fullCalendar( 'refetchEvents' );
 		})
 		.fail(function(data) {
 			errorHandle(data);
@@ -86,12 +86,25 @@ $(function(){
 					$(doc).each(function() {
 						events.push({
 							title: $(this).attr('title'),
-							start: $(this).attr('start') // will be parsed
+							start: $(this).attr('start'),
+							url: $(this).attr('url'),
+							backgroundColor : $(this).attr('bgColor'),
+							textColor: 'black' 
 						});
 					});
 					callback(events);
 				}
 			});
+		},
+		eventClick: function(event) {
+			$('.left-panel').load(event.url+' .content');
+
+			history.pushState(null, null, $(this).attr('href'));
+			return false;
 		}
 	});
 });
+
+
+
+

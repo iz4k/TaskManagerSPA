@@ -47,10 +47,10 @@
 					</div>			
 					<!-- START RIGHT PANEL -->
 					<div class="col-md-6 right-panel">
-					{% block right-panel %}
 						<div class="row">
 							<div class="col-md-12 custom-panel outer-div" style="border-bottom: solid 1px black; height: 40%;">
 								<div class="inner-div">
+									{% block right-up-panel %}
 									<div class="col-md-12 prioMsg">
 										<div class="col-md-1 nopadding">
 											12.3
@@ -59,15 +59,17 @@
 											Normal
 										</div>
 									</div>
+									{% endblock %}
 								</div>
 							</div>
 							<div class="col-md-12 custom-panel outer-div nopadding" style="height: 60%;">
 								<div class="inner-div">
+									{% block right-down-panel %}
 									<div id='calendar'></div>
+									{% endblock %}
 								</div>
 							</div>
 						</div>
-					{%endblock%}
 					</div> <!-- outer-div -->
 				</div>
 			</div>
