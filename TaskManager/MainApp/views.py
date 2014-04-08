@@ -9,6 +9,7 @@ from MainApp.models import *
 from main_forms import *
 import sys
 import json
+import time
 
 @login_required
 def home(request):
@@ -166,3 +167,30 @@ def send_errors(errors):
 		e = errors[error]
 		errors_dict[error] = unicode(e)
 	return json.dumps(errors_dict)
+
+def calendarjson(request):
+    callback = request.GET.get('callback', '')
+    start = request.GET.get('start', '')
+    end = request.GET.get('end', '')
+
+    try:
+        task = Task.objects.filter(users=request.user)
+    except Task.DoesNotExist:
+	return HttpResponseRedirect("/")
+
+    newArray = []
+    for i in task:
+        tmpDict = {}
+        tmpDict['title'] = i.name
+        tmpDict['start'] = time.mktime(i.deadline.timetuple())
+        tmpDict['url'] = "http://localhost:8888/event/" + i.name
+        newArray.append(tmpDict)
+
+    newDict = {}
+    newDict = newArray
+
+    resp = json.dumps(newDict)
+    if 'callback' in request.REQUEST:
+        resp = callback + '(' + resp + ')'
+
+    return HttpResponse(resp, content_type='application/json')
