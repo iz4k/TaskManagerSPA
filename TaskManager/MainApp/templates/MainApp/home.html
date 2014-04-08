@@ -6,10 +6,8 @@
 	{% include "navbar.html" %}
 {% endblock %}
 
-
-	{% block left-panel %}
-		
-		<div class="inner-div content">
+{% block left-panel %}		
+	<div class="inner-div content">
 		{% for event in latest %}
 			<div class="cold-md-10 event">
 				{% if event.type == "group"%}
@@ -22,7 +20,7 @@
 					 was created.
 				{% elif event.type == "comment"%}
 					{% if event.task %}
-						New comment in task<a href='{{event.task.get_absolute_url}}' class='ajax'> <b>{{event.task.name}}</b></a>
+						New comment in task <a href='{{event.task.get_absolute_url}}' class='ajax'><b>{{event.task.name}}</b></a>
 					{% elif event.group %}
 						New comment in group <a href ='{{event.group.get_absolute_url}}' class='ajax'><b>{{event.group.name}}</b></a>
 					{% endif %}
@@ -31,5 +29,7 @@
 		{% empty %}
 			No new events were found.
 		{% endfor %}
-		</div>
-		{% endblock %}
+
+	</div>
+{% endblock %}
+

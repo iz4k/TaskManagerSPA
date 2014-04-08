@@ -1,7 +1,6 @@
 $(function(){
 	$('.right-up-panel').load('/small_task_list/ .content');
 	$(document).on('click', '.ajax', function(){
-	
 		$('.left-panel').load($(this).attr('href')+' .content');
 
 		$('.active').removeClass('active');
@@ -25,6 +24,7 @@ $(function(){
 	$(document).on('submit', '#form-task', function(){
 		$.post('/tasks_new/', $(this).serialize(), function(){
 			history.back();
+			$('#calendar').fullCalendar( 'refetchEvents' );
 		})
 		.fail(function(data) {
 			errorHandle(data);
@@ -47,7 +47,6 @@ $(function(){
         return false;
 	});
 
-
 	window.onpopstate = function(event) {
 		$('.left-panel').load(location.pathname+' .content');
 	}
@@ -62,21 +61,40 @@ $(function(){
 
 	// Calendar initialization
 	$('#calendar').fullCalendar({
-		events: [
-			{
-				title  : 'event1',
-				start  : '2014-04-01'
-			},
-			{
-				title  : 'event2',
-				start  : '2014-04-12',
-				end    : '2014-04-15'
-			},
-		    {
-				title  : 'event3',
-				start  : '2014-04-09 12:30:00',
-				allDay : false // will make the time show
-		    }
-	    ]
+		height: 380,
+		events: function(start, end, callback) {
+    	    $.ajax({
+				url: '/calendarjson/',
+				dataType: 'json',
+				data: {
+					// our hypothetical feed requires UNIX timestamps
+					start: Math.round(start.getTime() / 1000),
+					end: Math.round(end.getTime() / 1000)
+				},
+				success: function(doc) {
+					var events = [];
+					$(doc).each(function() {
+						events.push({
+							title: $(this).attr('title'),
+							start: $(this).attr('start'),
+							url: $(this).attr('url'),
+							backgroundColor : $(this).attr('bgColor'),
+							textColor: 'black' 
+						});
+					});
+					callback(events);
+				}
+			});
+		},
+		eventClick: function(event) {
+			$('.left-panel').load(event.url+' .content');
+
+			history.pushState(null, null, $(this).attr('href'));
+			return false;
+		}
 	});
 });
+
+
+
+

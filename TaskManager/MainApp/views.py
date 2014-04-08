@@ -9,6 +9,7 @@ from MainApp.models import *
 from main_forms import *
 import sys
 import json
+import time
 
 @login_required
 def home(request):
@@ -23,11 +24,8 @@ def home(request):
 
 	latest = list(groups) + list(tasks) +list(comments)
 	latest_sorted = sorted(latest, key=lambda x: x.created, reverse=True)[:10]
-	
+
 	return render_to_response('MainApp/home.html', {'user':request.user, 'latest':latest_sorted, 'task_list':task_list})
-    
-
-
 
 def ajax_view(function):
 	#decorator function
@@ -159,15 +157,14 @@ def user_view(request, user_id):
 		#some sort of error page here?
 		return HttpResponseRedirect("/")
 	#need to check if user is in group here
-	
+
 	group_list = Group.objects.filter(users = user)
 	return render_to_response('MainApp/user.html', {'user':user, 'group_list': group_list})
-	
+
 @ajax_view
 def small_task_list(request):
 	task_list = Task.objects.filter(users = request.user).order_by('deadline')[:6]
 	return render_to_response('MainApp/small_task_list.html', {'task_list':task_list})
-
 
 def send_errors(errors):
 	errors_dict = {}
@@ -175,3 +172,40 @@ def send_errors(errors):
 		e = errors[error]
 		errors_dict[error] = unicode(e)
 	return json.dumps(errors_dict)
+
+def calendarjson(request):
+    callback = request.GET.get('callback', '')
+
+    try:
+        task = Task.objects.filter(users=request.user)
+    except Task.DoesNotExist:
+	return HttpResponseRedirect("/")
+
+    newArray = []
+    for i in task:
+        tmpDict = {}
+        if len(i.name) >= 6:
+            tmpDict['title'] = i.name[:6]
+        else:
+            tmpDict['title'] = i.name
+        tmpDict['start'] = time.mktime(i.deadline.timetuple())
+        tmpDict['url'] = "http://localhost:8888/tasks/" + str(i.pk) + "/"
+        if i.priority == 1:
+            tmpDict['bgColor'] = 'red'
+        elif i.priority == 2:
+            tmpDict['bgColor'] = 'orange'
+        elif i.priority == 3:
+            tmpDict['bgColor'] = 'yellow'
+        else:
+            tmpDict['bgColor'] = 'blue'
+
+        newArray.append(tmpDict)
+
+    newDict = {}
+    newDict = newArray
+
+    resp = json.dumps(newDict)
+    if 'callback' in request.REQUEST:
+        resp = callback + '(' + resp + ')'
+
+    return HttpResponse(resp, content_type='application/json')
