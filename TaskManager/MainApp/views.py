@@ -157,10 +157,10 @@ def user_view(request, user_id):
 		#some sort of error page here?
 		return HttpResponseRedirect("/")
 	#need to check if user is in group here
-	
+
 	group_list = Group.objects.filter(users = user)
 	return render_to_response('MainApp/user.html', {'user':user, 'group_list': group_list})
-	
+
 def send_errors(errors):
 	errors_dict = {}
 	for error in errors:
@@ -170,8 +170,6 @@ def send_errors(errors):
 
 def calendarjson(request):
     callback = request.GET.get('callback', '')
-    start = request.GET.get('start', '')
-    end = request.GET.get('end', '')
 
     try:
         task = Task.objects.filter(users=request.user)
@@ -181,9 +179,21 @@ def calendarjson(request):
     newArray = []
     for i in task:
         tmpDict = {}
-        tmpDict['title'] = i.name
+        if len(i.name) >= 6:
+            tmpDict['title'] = i.name[:6]
+        else:
+            tmpDict['title'] = i.name
         tmpDict['start'] = time.mktime(i.deadline.timetuple())
-        tmpDict['url'] = "http://localhost:8888/event/" + i.name
+        tmpDict['url'] = "http://localhost:8888/tasks/" + str(i.pk) + "/"
+        if i.priority == 1:
+            tmpDict['bgColor'] = 'red'
+        elif i.priority == 2:
+            tmpDict['bgColor'] = 'orange'
+        elif i.priority == 3:
+            tmpDict['bgColor'] = 'yellow'
+        else:
+            tmpDict['bgColor'] = 'blue'
+
         newArray.append(tmpDict)
 
     newDict = {}
