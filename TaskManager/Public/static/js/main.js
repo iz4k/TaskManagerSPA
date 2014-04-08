@@ -58,8 +58,43 @@ $(function(){
 		}
 	}
 
-	// Calendar initialization
+	/* Calendar initialization
 	$('#calendar').fullCalendar({
-		events: 'http://localhost:8888/calendarjson/'
+		height: 380,
+		events: {
+			url: 'http://mikesmithdev.com/feeds/caljson2.ashx', 
+			error: function(e) {
+				alert('there was an error while fetching events!');
+			},
+			color: 'yellow',   // a non-ajax option
+			textColor: 'black' // a non-ajax option
+		}
+	});*/
+	$('#calendar').fullCalendar({
+		height: 380,
+		events: function(start, end, callback) {
+    	    $.ajax({
+				url: '/calendarjson/',
+				dataType: 'json',
+				data: {
+					// our hypothetical feed requires UNIX timestamps
+					start: Math.round(start.getTime() / 1000),
+					end: Math.round(end.getTime() / 1000)
+				},
+				success: function(doc) {
+					console.log(doc);
+					var events = [];
+					$(doc).find('event').each(function() {
+						alert($(this).attr('title'));
+						events.push({
+							title: $(this).attr('title'),
+							start: $(this).attr('start') // will be parsed
+						});
+					});
+					console.log(doc);
+					callback(events);
+				}
+			});
+		}
 	});
 });

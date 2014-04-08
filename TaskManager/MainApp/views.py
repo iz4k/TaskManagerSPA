@@ -159,24 +159,32 @@ def send_errors(errors):
 
 def calendarjson(request):
     callback = request.GET.get('callback', '')
+    start = request.GET.get('start', '')
+    end = request.GET.get('end', '')
 
     try:
         task = Task.objects.filter(users=request.user)
     except Task.DoesNotExist:
 	return HttpResponseRedirect("/")
 
+   # newArray = []
+    #for i in task:
+      #  tmpDict = {}
+      #  tmpDict['title'] = i.name
+      #  tmpDict['start'] = time.mktime(i.deadline.timetuple())
+     #   tmpDict['url'] = "http://localhost:8888/event/" + i.name
+    #    newArray.append(tmpDict)
+
     newDict = {}
-    for i in task:
-        tmpArray = {}
-        tmpArray['workload'] = i.workload
-        tmpArray['priority'] = i.priority
-        tmpArray['title'] = i.name
-        tmpArray['start'] = time.mktime(i.deadline.timetuple())
-        tmpArray['url'] = "http://localhost:8888/event/" + i.name
-        newDict[i.name] = tmpArray
+    newDict['events'] = {}
+    newDict['events']['title'] = "teste"
+    newDict['events']['start'] = "2014-04-12"
 
     resp = json.dumps(newDict)
     if 'callback' in request.REQUEST:
         resp = callback + '(' + resp + ')'
 
     return HttpResponse(resp, content_type='application/json')
+
+
+
