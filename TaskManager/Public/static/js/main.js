@@ -46,7 +46,6 @@ $(function(){
         return false;
 	});
 
-
 	window.onpopstate = function(event) {
 		$('.left-panel').load(location.pathname+' .content');
 	}
@@ -61,21 +60,6 @@ $(function(){
 
 	// Calendar initialization
 	$('#calendar').fullCalendar({
-		events: [
-			{
-				title  : 'event1',
-				start  : '2014-04-01'
-			},
-			{
-				title  : 'event2',
-				start  : '2014-04-12',
-				end    : '2014-04-15'
-			},
-		    {
-				title  : 'event3',
-				start  : '2014-04-09 12:30:00',
-				allDay : false // will make the time show
-		    }
-	    ]
+		events: 'http://localhost:8888/calendarjson/'
 	});
 });
