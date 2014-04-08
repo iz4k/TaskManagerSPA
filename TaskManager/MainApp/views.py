@@ -8,13 +8,13 @@ from MainApp.models import *
 from main_forms import *
 import sys
 import json
+import time
 
 @login_required
 def home(request):
 	print >>sys.stderr, 'TEST PRINT PLS IGNORE'
 	user = request.user
-	task_list = Task.objects.filter(users = request.user)
-	return render_to_response('MainApp/home.html', {'user':request.user, 'task_list':task_list})
+	return render_to_response('MainApp/home.html', {'user':request.user})
 
 def ajax_view(function):
 	#decorator function
@@ -156,3 +156,27 @@ def send_errors(errors):
 		e = errors[error]
 		errors_dict[error] = unicode(e)
 	return json.dumps(errors_dict)
+
+def calendarjson(request):
+    callback = request.GET.get('callback', '')
+
+    try:
+        task = Task.objects.filter(users=request.user)
+    except Task.DoesNotExist:
+	return HttpResponseRedirect("/")
+
+    newDict = {}
+    for i in task:
+        tmpArray = {}
+        tmpArray['workload'] = i.workload
+        tmpArray['priority'] = i.priority
+        tmpArray['title'] = i.name
+        tmpArray['start'] = time.mktime(i.deadline.timetuple())
+        tmpArray['url'] = "http://localhost:8888/event/" + i.name
+        newDict[i.name] = tmpArray
+
+    resp = json.dumps(newDict)
+    if 'callback' in request.REQUEST:
+        resp = callback + '(' + resp + ')'
+
+    return HttpResponse(resp, content_type='application/json')
