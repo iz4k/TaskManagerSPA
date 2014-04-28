@@ -172,20 +172,25 @@ def calendarjson(request):
     callback = request.GET.get('callback', '')
 
     try:
-        task = Task.objects.filter(users=request.user)
+        task = Task.objects.filter(users=request.user).order_by('created')
     except Task.DoesNotExist:
-	return HttpResponseRedirect("/")
+		return HttpResponseRedirect("/")
+
+	count = 0
 
     newArray = []
     for i in task:
+    	if (i.created = prevData.created):
+    		count = count + 1
+    	prevData = i
         tmpDict = {}
-        if len(i.name) >= 6:
-            tmpDict['title'] = i.name[:6]
+        if len(i.name) > 6:
+            tmpDict['title'] = i.name[:6] + "..."
         else:
             tmpDict['title'] = i.name
         tmpDict['start'] = time.mktime(i.deadline.timetuple())
         tmpDict['url'] = "http://localhost:8888/tasks/" + str(i.pk) + "/"
-        if i.priority == 1:
+		if i.priority == 1:
             tmpDict['bgColor'] = 'red'
         elif i.priority == 2:
             tmpDict['bgColor'] = 'orange'
