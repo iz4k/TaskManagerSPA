@@ -169,43 +169,47 @@ def send_errors(errors):
 	return json.dumps(errors_dict)
 
 def calendarjson(request):
-    callback = request.GET.get('callback', '')
+	callback = request.GET.get('callback', '')
 
-    try:
-        task = Task.objects.filter(users=request.user).order_by('created')
-    except Task.DoesNotExist:
+	try:
+		task = Task.objects.filter(users=request.user).order_by('created')
+	except Task.DoesNotExist:
 		return HttpResponseRedirect("/")
 
-	count = 0
-
-    newArray = []
-    for i in task:
-    	if (i.created = prevData.created):
-    		count = count + 1
-    	prevData = i
-        tmpDict = {}
-        if len(i.name) > 6:
-            tmpDict['title'] = i.name[:6] + "..."
-        else:
-            tmpDict['title'] = i.name
-        tmpDict['start'] = time.mktime(i.deadline.timetuple())
-        tmpDict['url'] = "http://localhost:8888/tasks/" + str(i.pk) + "/"
+	#Count events per day
+	evtPerDay = 0
+	newArray = []
+	for i in task:
+		#Variable used to convert object to dic
+		tmpDict = {}
+		prevEvent = {}
+		if prevEvent:
+			print "Not inside"
+			print >>sys.stderr, 'RAFAEL LOTT'
+		else:
+			print "something inside"
+		print "TESTE T"
+		if len(i.name) > 6:
+			tmpDict['title'] = i.name[:6] + "..."
+		else:
+			tmpDict['title'] = i.name
+		tmpDict['start'] = time.mktime(i.deadline.timetuple())
+		tmpDict['url'] = "http://localhost:8888/tasks/" + str(i.pk) + "/"
 		if i.priority == 1:
-            tmpDict['bgColor'] = 'red'
-        elif i.priority == 2:
-            tmpDict['bgColor'] = 'orange'
-        elif i.priority == 3:
-            tmpDict['bgColor'] = 'yellow'
-        else:
-            tmpDict['bgColor'] = 'blue'
+			tmpDict['bgColor'] = 'red'
+		elif i.priority == 2:
+			tmpDict['bgColor'] = 'orange'
+		elif i.priority == 3:
+			tmpDict['bgColor'] = 'yellow'
+		else:
+			tmpDict['bgColor'] = 'blue'
+		newArray.append(tmpDict)
 
-        newArray.append(tmpDict)
+	newDict = {}
+	newDict = newArray
 
-    newDict = {}
-    newDict = newArray
+	resp = json.dumps(newDict)
+	if 'callback' in request.REQUEST:
+		resp = callback + '(' + resp + ')'
 
-    resp = json.dumps(newDict)
-    if 'callback' in request.REQUEST:
-        resp = callback + '(' + resp + ')'
-
-    return HttpResponse(resp, content_type='application/json')
+	return HttpResponse(resp, content_type='application/json')
