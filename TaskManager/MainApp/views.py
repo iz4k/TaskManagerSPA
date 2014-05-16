@@ -199,12 +199,12 @@ def calendarjson(request):
 			tmpDict['title'] = i.name
 		tmpDict['start'] = time.mktime(i.deadline.timetuple())
 		tmpDict['url'] = "http://localhost:8888/tasks/" + str(i.pk) + "/"
-		 if i.priority == 1:
-            tmpDict['bgColor'] = 'red'
-        elif i.priority == 2:
-            tmpDict['bgColor'] = 'yellow'
-        elif i.priority == 3:
-            tmpDict['bgColor'] = 'green'
+		if i.priority == 1:
+			tmpDict['bgColor'] = 'red'
+		elif i.priority == 2:
+			tmpDict['bgColor'] = 'yellow'
+		elif i.priority == 3:
+			tmpDict['bgColor'] = 'green'
 
 		# Check if prevEvent exists and if prevEvent is on same day as the current event
 		if prevEvent and (prevEvent['start'] == tmpDict['start']) :
