@@ -73,6 +73,8 @@ $(function(){
 				success: function(doc) {
 					var events = [];
 					$(doc).each(function() {
+						//if ($(this).attr('title') == 'More...')
+							// it is working alert('One More option here');
 						events.push({
 							title: $(this).attr('title'),
 							start: $(this).attr('start'),
@@ -84,6 +86,13 @@ $(function(){
 					callback(events);
 				}
 			});
+		},
+		eventMouseover: function(event, jsEvent, view) {
+			var layer =	"<div class='box_event_outer'><div class='box_event_inner'>"+event.title+"</div></div>";
+			$(this).append(layer);
+        },
+        eventMouseout: function(calEvent, domEvent) {
+        	$(".box_event_outer").remove();
 		},
 		eventClick: function(event) {
 			$('.left-panel').load(event.url+' .content');

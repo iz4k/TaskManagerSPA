@@ -130,3 +130,7 @@ form:after{
 	padding: 1em;
 	
 }
+
+/* Full Calendar extension CSS */
+.box_event_outer{position: absolute; top: -42px; background-image: url('https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-32.png'); background-repeat: no-repeat; background-size: 21px; background-position: -3px 26px; height: 41px; z-index: 100;}
+.box_event_inner{width: 100%; height: 34px; background-color: lightgray;border: 1px solid black;padding: 5px 4px;}

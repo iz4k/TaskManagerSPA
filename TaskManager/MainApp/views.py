@@ -178,17 +178,14 @@ def calendarjson(request):
 
 	#Count events per day
 	evtPerDay = 0
-	newArray = []
+	arrayEvents = []
+	moreOptEvents = []
+	prevEvent = {}
+	count = 0
+	# Loop through all the events from database
 	for i in task:
 		#Variable used to convert object to dic
 		tmpDict = {}
-		prevEvent = {}
-		if prevEvent:
-			print "Not inside"
-			print >>sys.stderr, 'RAFAEL LOTT'
-		else:
-			print "something inside"
-		print "TESTE T"
 		if len(i.name) > 6:
 			tmpDict['title'] = i.name[:6] + "..."
 		else:
@@ -203,12 +200,26 @@ def calendarjson(request):
 			tmpDict['bgColor'] = 'yellow'
 		else:
 			tmpDict['bgColor'] = 'blue'
-		newArray.append(tmpDict)
 
-	newDict = {}
-	newDict = newArray
+		# Check if prevEvent exists and if prevEvent is on same day as the current event
+		if prevEvent and (prevEvent['start'] == tmpDict['start']) :
+			print >>sys.stderr, count
+			count = count + 1
+			if count >= 2:
+				tmpDict['title'] = 'More...'
+				moreOptEvents.append(tmpDict)
+		else:
+			count = 0
+			print >>sys.stderr, 'Nothing inside or start date different'
 
-	resp = json.dumps(newDict)
+		prevEvent = tmpDict
+		arrayEvents.append(tmpDict)
+
+
+	allEvents = {}
+	allEvents = arrayEvents
+
+	resp = json.dumps(allEvents)
 	if 'callback' in request.REQUEST:
 		resp = callback + '(' + resp + ')'
 
