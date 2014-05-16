@@ -198,7 +198,7 @@ def calendarjson(request):
 		else:
 			tmpDict['title'] = i.name
 		tmpDict['start'] = time.mktime(i.deadline.timetuple())
-		tmpDict['url'] = "http://localhost:8888/tasks/" + str(i.pk) + "/"
+		tmpDict['url'] = "/tasks/" + str(i.pk) + "/"
 		if i.priority == 1:
 			tmpDict['bgColor'] = 'red'
 		elif i.priority == 2:
