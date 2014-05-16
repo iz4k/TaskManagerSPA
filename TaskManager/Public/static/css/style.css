@@ -18,9 +18,16 @@ html, body {padding, margin:0;height:100%;}
 .noboth {padding: 0px !important; margin: 0px !important;}
 
 .navbar-default .navbar-nav>li>a {color: white;}
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {background-color: transparent;}
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a:focus {background-color: transparent;}
 .jumbotron {margin-bottom: 0px; padding: 0px;}
-.left-panel, .right-panel {border-right: solid 1px #333; padding: 52px 0px 0px 0px; height:100%;overflow: auto;}
+.left-panel, .right-panel {
+	border-right: solid 1px #333;
+	padding: 52px 0px 0px 0px;
+	height:100%;
+	overflow: auto;
+}
 .left-panel {border-left: solid 1px #333;}
 .custom-panel {height: 50%;}
 .outer-div {padding: 0px; margin: 0px;}
@@ -132,5 +139,23 @@ form:after{
 }
 
 /* Full Calendar extension CSS */
-.box_event_outer{position: absolute; top: -42px; background-image: url('https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-32.png'); background-repeat: no-repeat; background-size: 21px; background-position: -3px 26px; height: 41px; z-index: 100;}
-.box_event_inner{width: 100%; height: 34px; background-color: lightgray;border: 1px solid black;padding: 5px 4px;}
+
+.box_event_outer{
+	position: absolute;
+	background-image: url('https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-up-b-24.png');
+	background-repeat: no-repeat;
+	background-size: 21px;
+	background-position: 2px -6px;
+	z-index: 100;
+	left: -2px;
+	padding-top: 8px;
+}
+.box_event_inner{
+	width: 80px;
+	background-color: lightgray;
+	border: 1px solid black;
+	padding: 1px 3px;
+	font-size: 11px;
+}
+.event_line{margin: 3px 0px; border-radius: 3px; border: solid gray 1px;}
+.event_line h5 {color: black; margin: 0px;padding: 1px 2px;font-size: 11px;}

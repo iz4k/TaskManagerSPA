@@ -11,5 +11,6 @@ urlpatterns = patterns('',
     url(r'^profile/$', views.profile),
     url(r'^profile/(?P<user_id>[0-9])/$', views.user_view),
     url(r'^comment/(?P<comment_id>[0-9])/$', views.comment_view),
-    url(r'^calendarjson/$', views.calendarjson)
+    url(r'^calendarjson/$', views.calendarjson),
+    url(r'^calendarmore/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', views.calendarmore)
 )

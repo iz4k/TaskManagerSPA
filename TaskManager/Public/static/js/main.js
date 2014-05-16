@@ -88,11 +88,46 @@ $(function(){
 			});
 		},
 		eventMouseover: function(event, jsEvent, view) {
-			var layer =	"<div class='box_event_outer'><div class='box_event_inner'>"+event.title+"</div></div>";
-			$(this).append(layer);
+			var left = $(this).css('left').split("px");
+			var top = $(this).css('top').split("px");
+			left = parseInt(left[0]) - 2;
+			top = parseInt(top[0]) + 18;
+			if (event.title == "More...") {
+				var test = String(event.start);
+				test = test.split(' ');
+				if (test[1] == "Jan")
+					test[1] = '01';
+				else if (test[1] == "Feb")
+					test[1] = '02';
+				else if (test[1] == "Mar")
+					test[1] = '03';
+				else if (test[1] == "Apr")
+					test[1] = '04';
+				else if (test[1] == "May")
+					test[1] = '05';
+				else if (test[1] == "Jun")
+					test[1] = '06';
+				else if (test[1] == "Jul")
+					test[1] = '07';
+				else if (test[1] == "Aug")
+					test[1] = '08';
+				else if (test[1] == "Sep")
+					test[1] = '09';
+				else if (test[1] == "Oct")
+					test[1] = '10';
+				else if (test[1] == "Nov")
+					test[1] = '11';
+				else if (test[1] == "Dec")
+					test[1] = '12';
+				$.get("/calendarmore/"+test[3]+"/"+test[1]+"/"+test[2]+"/",function(data) {
+					$(".fc-event-container").append(data);
+					$(".box_event_outer").css('top', top);
+					$(".box_event_outer").css('left', left);
+				});
+			}
         },
         eventMouseout: function(calEvent, domEvent) {
-        	$(".box_event_outer").remove();
+        	//$(".box_event_outer").delay(2000).remove();
 		},
 		eventClick: function(event) {
 			$('.left-panel').load(event.url+' .content');
@@ -101,6 +136,10 @@ $(function(){
 			return false;
 		}
 	});
+
+	$(".inner-div").on( "mouseleave", function() {
+		$(".box_event_outer").remove();
+	})
 });
 
 

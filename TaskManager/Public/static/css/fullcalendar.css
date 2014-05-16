@@ -253,7 +253,7 @@ html .fc,
 ------------------------------------------------------------------------*/
 
 .fc-event-container > * {
-	z-index: 8;
+	/*z-index: 8; TMP */ 
 	}
 
 .fc-event-container > .ui-draggable-dragging,

@@ -172,7 +172,7 @@ def calendarjson(request):
 	callback = request.GET.get('callback', '')
 
 	try:
-		task = Task.objects.filter(users=request.user).order_by('created')
+		task = Task.objects.filter(users=request.user).order_by('created').order_by('name')
 	except Task.DoesNotExist:
 		return HttpResponseRedirect("/")
 
@@ -203,18 +203,19 @@ def calendarjson(request):
 
 		# Check if prevEvent exists and if prevEvent is on same day as the current event
 		if prevEvent and (prevEvent['start'] == tmpDict['start']) :
-			print >>sys.stderr, count
 			count = count + 1
-			if count >= 2:
+			if count >= 1:
 				tmpDict['title'] = 'More...'
+				tmpDict['url'] = ''
+				tmpDict['bgColor'] = 'gray'
 				moreOptEvents.append(tmpDict)
 		else:
 			count = 0
-			print >>sys.stderr, 'Nothing inside or start date different'
+			#print >>sys.stderr, 'Nothing inside or start date different'
 
-		prevEvent = tmpDict
-		arrayEvents.append(tmpDict)
-
+		if not(count > 1):
+			prevEvent = tmpDict
+			arrayEvents.append(tmpDict)
 
 	allEvents = {}
 	allEvents = arrayEvents
@@ -224,3 +225,12 @@ def calendarjson(request):
 		resp = callback + '(' + resp + ')'
 
 	return HttpResponse(resp, content_type='application/json')
+
+def calendarmore(request, year, month, day):
+
+	try:
+		tasks_list = Task.objects.filter(users=request.user).filter(deadline=year+"-"+month+"-"+day).order_by('name')
+	except Task.DoesNotExist:
+		return HttpResponseRedirect("/")
+
+	return render_to_response('MainApp/box_events.html', {'tasks_list': tasks_list})
