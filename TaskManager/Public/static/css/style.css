@@ -71,7 +71,7 @@ form:after{
 	display: table;
 	clear: both;
 }
-.event h4{
+.event .h4{
 	letter-spacing: 1px;
 	font-size: 160%;
 	color:#333;
@@ -79,8 +79,12 @@ form:after{
 	background-color: #7ACCFF;
 	line-height: 1.5;
 }
+.event .h4:after {
+	content: "";
+	display: table;
+	clear: both;
+}
 .event span{
-	clear:both;
 	font-weight: 100;
 	font-style: italic;
 	font-size: 90%;
@@ -131,4 +135,13 @@ form:after{
 	background-color: #E6E6E6;
 	padding: 1em;
 	
+}
+.prio1{
+	border:2px solid red;
+}
+.prio2{
+	border:2px solid yellow;
+}
+.prio3{
+	border:2px solid green;
 }

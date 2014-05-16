@@ -3,8 +3,7 @@
 	<div class="row">
 	{% for task in task_list %}
 		<div class="cold-md-12 event">
-			<h4>{{task.name}}</h4>
-
+			<a href="{{ task.get_absolute_url }}" class="ajax h4">{{task.name}}</a>
 			<span>
 			Deadline: {{task.deadline}} 
 			{% if task.priority %}, Priority: {{task.priority}}{% endif %}
@@ -12,8 +11,7 @@
 			</span>
 			<p class="fadez">{{task.description}}</p>
 			<a href="{{ task.get_absolute_url }}" class="ajax read-more">Read more</a>
-			<!--TODO -->
-			<p class="comment-nr">X comments</p>
+			
 		</div>
 	{% endfor %}
 	</div>

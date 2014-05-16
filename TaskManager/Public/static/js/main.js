@@ -24,6 +24,7 @@ $(function(){
 	$(document).on('submit', '#form-task', function(){
 		$.post('/tasks_new/', $(this).serialize(), function(){
 			history.back();
+			$('.right-up-panel').load('/small_task_list/');
 			$('#calendar').fullCalendar( 'refetchEvents' );
 		})
 		.fail(function(data) {

@@ -163,8 +163,9 @@ def user_view(request, user_id):
 
 @ajax_view
 def small_task_list(request):
-	task_list = Task.objects.filter(users = request.user).order_by('-deadline')[:6]
+	task_list = Task.objects.filter(users = request.user).order_by('deadline')[:5]
 	return render_to_response('MainApp/small_task_list.html', {'task_list':task_list})
+
 
 def send_errors(errors):
 	errors_dict = {}
@@ -189,15 +190,13 @@ def calendarjson(request):
         else:
             tmpDict['title'] = i.name
         tmpDict['start'] = time.mktime(i.deadline.timetuple())
-        tmpDict['url'] = "http://localhost:8888/tasks/" + str(i.pk) + "/"
+        tmpDict['url'] = "http://localhost:8000/tasks/" + str(i.pk) + "/"
         if i.priority == 1:
             tmpDict['bgColor'] = 'red'
         elif i.priority == 2:
-            tmpDict['bgColor'] = 'orange'
-        elif i.priority == 3:
             tmpDict['bgColor'] = 'yellow'
-        else:
-            tmpDict['bgColor'] = 'blue'
+        elif i.priority == 3:
+            tmpDict['bgColor'] = 'green'
 
         newArray.append(tmpDict)
 
