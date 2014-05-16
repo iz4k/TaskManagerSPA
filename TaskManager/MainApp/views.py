@@ -175,36 +175,57 @@ def send_errors(errors):
 	return json.dumps(errors_dict)
 
 def calendarjson(request):
-    callback = request.GET.get('callback', '')
 
-    try:
-        task = Task.objects.filter(users=request.user)
-    except Task.DoesNotExist:
-	return HttpResponseRedirect("/")
+	callback = request.GET.get('callback', '')
 
-    newArray = []
-    for i in task:
-        tmpDict = {}
-        if len(i.name) >= 6:
-            tmpDict['title'] = i.name[:6]
-        else:
-            tmpDict['title'] = i.name
-        tmpDict['start'] = time.mktime(i.deadline.timetuple())
-        tmpDict['url'] = "http://localhost:8000/tasks/" + str(i.pk) + "/"
-        if i.priority == 1:
+	try:
+		task = Task.objects.filter(users=request.user).order_by('created')
+	except Task.DoesNotExist:
+		return HttpResponseRedirect("/")
+
+	#Count events per day
+	evtPerDay = 0
+	arrayEvents = []
+	moreOptEvents = []
+	prevEvent = {}
+	count = 0
+	# Loop through all the events from database
+	for i in task:
+		#Variable used to convert object to dic
+		tmpDict = {}
+		if len(i.name) > 6:
+			tmpDict['title'] = i.name[:6] + "..."
+		else:
+			tmpDict['title'] = i.name
+		tmpDict['start'] = time.mktime(i.deadline.timetuple())
+		tmpDict['url'] = "http://localhost:8888/tasks/" + str(i.pk) + "/"
+		 if i.priority == 1:
             tmpDict['bgColor'] = 'red'
         elif i.priority == 2:
             tmpDict['bgColor'] = 'yellow'
         elif i.priority == 3:
             tmpDict['bgColor'] = 'green'
 
-        newArray.append(tmpDict)
+		# Check if prevEvent exists and if prevEvent is on same day as the current event
+		if prevEvent and (prevEvent['start'] == tmpDict['start']) :
+			print >>sys.stderr, count
+			count = count + 1
+			if count >= 2:
+				tmpDict['title'] = 'More...'
+				moreOptEvents.append(tmpDict)
+		else:
+			count = 0
+			print >>sys.stderr, 'Nothing inside or start date different'
 
-    newDict = {}
-    newDict = newArray
+		prevEvent = tmpDict
+		arrayEvents.append(tmpDict)
 
-    resp = json.dumps(newDict)
-    if 'callback' in request.REQUEST:
-        resp = callback + '(' + resp + ')'
 
-    return HttpResponse(resp, content_type='application/json')
+	allEvents = {}
+	allEvents = arrayEvents
+
+	resp = json.dumps(allEvents)
+	if 'callback' in request.REQUEST:
+		resp = callback + '(' + resp + ')'
+
+	return HttpResponse(resp, content_type='application/json')
