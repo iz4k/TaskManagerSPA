@@ -168,11 +168,12 @@ def send_errors(errors):
 		errors_dict[error] = unicode(e)
 	return json.dumps(errors_dict)
 
+@ajax_view
 def calendarjson(request):
 	callback = request.GET.get('callback', '')
 
 	try:
-		task = Task.objects.filter(users=request.user).order_by('created').order_by('name')
+		task = Task.objects.filter(users=request.user).order_by('name').order_by('deadline')
 	except Task.DoesNotExist:
 		return HttpResponseRedirect("/")
 
@@ -208,14 +209,12 @@ def calendarjson(request):
 				tmpDict['title'] = 'More...'
 				tmpDict['url'] = ''
 				tmpDict['bgColor'] = 'gray'
-				moreOptEvents.append(tmpDict)
 		else:
 			count = 0
-			#print >>sys.stderr, 'Nothing inside or start date different'
 
-		if not(count > 1):
-			prevEvent = tmpDict
+		if (count <= 1):
 			arrayEvents.append(tmpDict)
+		prevEvent = tmpDict
 
 	allEvents = {}
 	allEvents = arrayEvents
@@ -226,6 +225,7 @@ def calendarjson(request):
 
 	return HttpResponse(resp, content_type='application/json')
 
+@ajax_view
 def calendarmore(request, year, month, day):
 
 	try:

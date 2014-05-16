@@ -77,7 +77,7 @@ $(function(){
 							// it is working alert('One More option here');
 						events.push({
 							title: $(this).attr('title'),
-							start: $(this).attr('start'),
+							start: $(this).attr('start')+1,
 							url: $(this).attr('url'),
 							backgroundColor : $(this).attr('bgColor'),
 							textColor: 'black' 
@@ -93,6 +93,7 @@ $(function(){
 			left = parseInt(left[0]) - 2;
 			top = parseInt(top[0]) + 18;
 			if (event.title == "More...") {
+				$(".box_event_outer").remove();
 				var test = String(event.start);
 				test = test.split(' ');
 				if (test[1] == "Jan")
@@ -126,13 +127,11 @@ $(function(){
 				});
 			}
         },
-        eventMouseout: function(calEvent, domEvent) {
-        	//$(".box_event_outer").delay(2000).remove();
-		},
 		eventClick: function(event) {
-			$('.left-panel').load(event.url+' .content');
-
-			history.pushState(null, null, $(this).attr('href'));
+			if (event.title != "More...") {
+				$('.left-panel').load(event.url+' .content');
+				history.pushState(null, null, $(this).attr('href'));
+			} 
 			return false;
 		}
 	});
