@@ -22,16 +22,13 @@ html, body {padding, margin:0;height:100%;}
 .navbar-default .navbar-nav>.active>a:hover,
 .navbar-default .navbar-nav>.active>a:focus {background-color: transparent;}
 .jumbotron {margin-bottom: 0px; padding: 0px;}
-<<<<<<< HEAD
-.left-panel, .right-panel {border-right: solid 1px #333; padding: 0px 0px 0px 0px; height:100%;overflow: auto;}
-=======
+
 .left-panel, .right-panel {
 	border-right: solid 1px #333;
-	padding: 52px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
 	height:100%;
 	overflow: auto;
 }
->>>>>>> calendar
 .left-panel {border-left: solid 1px #333;}
 .custom-panel {height: 50%;}
 .outer-div {padding: 0px; margin: 0px;}
