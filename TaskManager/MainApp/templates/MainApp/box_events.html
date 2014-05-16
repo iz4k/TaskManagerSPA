@@ -1,0 +1,19 @@
+<div class="box_event_outer">
+	<div class="box_event_inner">
+		{% for task in tasks_list %}
+			{% if task.priority and task.priority == 1 %}
+				<div class="event_line" style="background-color: red;">
+			{% elif task.priority and task.priority == 2 %}
+				<div class="event_line" style="background-color: orange;">
+			{% elif task.priority and task.priority == 3 %}
+				<div class="event_line" style="background-color: yellow;">
+			{% else %}
+				<div class="event_line" style="background-color: blue;">
+			{% endif %}
+					<a href="/tasks/{{task.pk}}/" class="ajax link_box">
+						<h5 >{{task.name}}</h5>
+					</a>
+				</div>
+		{% endfor %}
+	</div>
+</div>
