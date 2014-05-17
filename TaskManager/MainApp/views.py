@@ -108,6 +108,54 @@ def tasks_new(request):
 	return render_to_response('MainApp/tasks_new.html',{'user':request.user, 'form':form}, context_instance=RequestContext(request)) 
 
 @ajax_view
+def delete_task(request):
+	task_id = request.POST["id"]
+	try:
+		task = Task.objects.get(id = task_id)
+	except Task.DoesNotExist:
+		return HttpResponse("Task does not exist.")
+
+	if task.users.filter(id = request.user.id).exists():
+		task.delete()
+		return HttpResponse("Successfully deleted task.")
+		
+	else:
+		return HttpResponse("You don't have the right to delete this.")
+
+@ajax_view
+def delete_group(request):
+	group_id = request.POST["id"]
+	try:
+		group = Group.objects.get(id = group_id)
+	except Task.DoesNotExist:
+		return HttpResponse("Group does not exist.")
+
+	if group.users.filter(id = request.user.id).exists():
+		group.delete()
+		return HttpResponse("Successfully deleted group.")
+		
+	else:
+		return HttpResponse("You don't have the right to delete this.")
+
+
+@ajax_view
+def delete_comment(request):
+	comment_id = request.POST["id"]
+	try:
+		comment = Comment.objects.get(id=comment_id)
+	except Comment.DoesNotExist:
+		return HttpResponse("Comment does not exist.")
+	if (comment.user==request.user):
+		if comment.task:
+			response = HttpResponse("/tasks/"+ str(comment.task.id) +"/")
+		else:
+			response = HttpResponse("/groups/"+ str(comment.group.id) +"/")
+		comment.delete()
+		return response
+	else:
+		return HttpResponse("You don't have the right to delete this.")
+
+@ajax_view
 def tasks_view(request, task_id):
 	#need to check if user is in task here
 	try:
@@ -189,7 +237,7 @@ def calendarjson(request):
         else:
             tmpDict['title'] = i.name
         tmpDict['start'] = time.mktime(i.deadline.timetuple())
-        tmpDict['url'] = "http://localhost:8888/tasks/" + str(i.pk) + "/"
+        tmpDict['url'] = "/tasks/" + str(i.pk) + "/"
         if i.priority == 1:
             tmpDict['bgColor'] = 'red'
         elif i.priority == 2:

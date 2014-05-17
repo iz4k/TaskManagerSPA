@@ -21,6 +21,43 @@ $(function(){
 	});
 
 
+	$(document).on('click', '#del_task', function(e){
+		var task_id = e.target.getAttribute("data-id");
+		$("#tmodal").one("hidden.bs.modal", function(){
+			$.post('/delete_task/', {"id":task_id}, function(response){
+				$('.left-panel').load("/tasks/" +" .content")
+			})
+			.fail(function(data){
+				errorHandle(data);
+			});
+		});
+	});
+
+	$(document).on('click', '#del_group', function(e){
+		var group_id = e.target.getAttribute("data-id");
+		$("#gmodal").one("hidden.bs.modal", function(){
+			$.post('/delete_group/', {"id":group_id}, function(response){
+				$('.left-panel').load("/groups/" +" .content")
+			})
+			.fail(function(data){
+				errorHandle(data);
+			});
+		});
+	});
+
+	$(document).on('click', '#del_comment', function(e){
+		var comment_id = e.target.getAttribute("data-id");
+		$("#cmodal"+comment_id).one("hidden.bs.modal", function(){
+			$.post('/delete_comment/', {"id":comment_id}, function(response){
+				$('.left-panel').load(response + ' .content');
+			})
+			.fail(function(data){
+				errorHandle(data);
+			});
+		});		
+	});
+
+
 	$(document).on('submit', '#form-task', function(){
 		$.post('/tasks_new/', $(this).serialize(), function(){
 			history.back();
@@ -93,6 +130,32 @@ $(function(){
 			return false;
 		}
 	});
+
+	$.ajaxSetup({ 
+	     beforeSend: function(xhr, settings) {
+	         function getCookie(name) {
+	             var cookieValue = null;
+	             if (document.cookie && document.cookie != '') {
+	                 var cookies = document.cookie.split(';');
+	                 for (var i = 0; i < cookies.length; i++) {
+	                     var cookie = jQuery.trim(cookies[i]);
+	                     // Does this cookie string begin with the name we want?
+	                 if (cookie.substring(0, name.length + 1) == (name + '=')) {
+	                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	                     break;
+	                 }
+	             }
+	         }
+	         return cookieValue;
+	         }
+	         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+	             // Only send the token to relative URLs i.e. locally.
+	             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+	         }
+	     } 
+	});
+
+
 });
 
 
