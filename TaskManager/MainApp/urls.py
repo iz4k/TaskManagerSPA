@@ -15,6 +15,6 @@ urlpatterns = patterns('',
     url(r'^calendarjson/$', views.calendarjson),
     url(r'^delete_task/$', views.delete_task),
     url(r'^delete_comment/$', views.delete_comment),
-    url(r'^delete_group/$', views.delete_group)
-
+    url(r'^delete_group/$', views.delete_group),
+    url(r'^calendarmore/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', views.calendarmore)
 )

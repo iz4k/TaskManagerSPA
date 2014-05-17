@@ -61,6 +61,7 @@ $(function(){
 	$(document).on('submit', '#form-task', function(){
 		$.post('/tasks_new/', $(this).serialize(), function(){
 			history.back();
+			$('.right-up-panel').load('/small_task_list/');
 			$('#calendar').fullCalendar( 'refetchEvents' );
 		})
 		.fail(function(data) {
@@ -111,9 +112,11 @@ $(function(){
 				success: function(doc) {
 					var events = [];
 					$(doc).each(function() {
+						//if ($(this).attr('title') == 'More...')
+							// it is working alert('One More option here');
 						events.push({
 							title: $(this).attr('title'),
-							start: $(this).attr('start'),
+							start: $(this).attr('start')+1,
 							url: $(this).attr('url'),
 							backgroundColor : $(this).attr('bgColor'),
 							textColor: 'black' 
@@ -123,10 +126,51 @@ $(function(){
 				}
 			});
 		},
+		eventMouseover: function(event, jsEvent, view) {
+			var left = $(this).css('left').split("px");
+			var top = $(this).css('top').split("px");
+			left = parseInt(left[0]) - 2;
+			top = parseInt(top[0]) + 18;
+			if (event.title == "More...") {
+				$(".box_event_outer").remove();
+				var test = String(event.start);
+				test = test.split(' ');
+				if (test[1] == "Jan")
+					test[1] = '01';
+				else if (test[1] == "Feb")
+					test[1] = '02';
+				else if (test[1] == "Mar")
+					test[1] = '03';
+				else if (test[1] == "Apr")
+					test[1] = '04';
+				else if (test[1] == "May")
+					test[1] = '05';
+				else if (test[1] == "Jun")
+					test[1] = '06';
+				else if (test[1] == "Jul")
+					test[1] = '07';
+				else if (test[1] == "Aug")
+					test[1] = '08';
+				else if (test[1] == "Sep")
+					test[1] = '09';
+				else if (test[1] == "Oct")
+					test[1] = '10';
+				else if (test[1] == "Nov")
+					test[1] = '11';
+				else if (test[1] == "Dec")
+					test[1] = '12';
+				$.get("/calendarmore/"+test[3]+"/"+test[1]+"/"+test[2]+"/",function(data) {
+					$(".fc-event-container").append(data);
+					$(".box_event_outer").css('top', top);
+					$(".box_event_outer").css('left', left);
+				});
+			}
+        },
 		eventClick: function(event) {
-			$('.left-panel').load(event.url+' .content');
-
-			history.pushState(null, null, $(this).attr('href'));
+			if (event.title != "More...") {
+				$('.left-panel').load(event.url+' .content');
+				history.pushState(null, null, $(this).attr('href'));
+			} 
 			return false;
 		}
 	});
@@ -155,6 +199,10 @@ $(function(){
 	     } 
 	});
 
+
+	$(".inner-div").on( "mouseleave", function() {
+		$(".box_event_outer").remove();
+	});
 
 });
 

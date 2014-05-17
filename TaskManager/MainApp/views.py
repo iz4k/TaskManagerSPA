@@ -211,8 +211,9 @@ def user_view(request, user_id):
 
 @ajax_view
 def small_task_list(request):
-	task_list = Task.objects.filter(users = request.user).order_by('-deadline')[:6]
+	task_list = Task.objects.filter(users = request.user).order_by('deadline')[:5]
 	return render_to_response('MainApp/small_task_list.html', {'task_list':task_list})
+
 
 def send_errors(errors):
 	errors_dict = {}
@@ -221,39 +222,69 @@ def send_errors(errors):
 		errors_dict[error] = unicode(e)
 	return json.dumps(errors_dict)
 
+@ajax_view
 def calendarjson(request):
-    callback = request.GET.get('callback', '')
 
-    try:
-        task = Task.objects.filter(users=request.user)
-    except Task.DoesNotExist:
-	return HttpResponseRedirect("/")
+	callback = request.GET.get('callback', '')
 
-    newArray = []
-    for i in task:
-        tmpDict = {}
-        if len(i.name) >= 6:
-            tmpDict['title'] = i.name[:6]
-        else:
-            tmpDict['title'] = i.name
-        tmpDict['start'] = time.mktime(i.deadline.timetuple())
-        tmpDict['url'] = "/tasks/" + str(i.pk) + "/"
-        if i.priority == 1:
-            tmpDict['bgColor'] = 'red'
-        elif i.priority == 2:
-            tmpDict['bgColor'] = 'orange'
-        elif i.priority == 3:
-            tmpDict['bgColor'] = 'yellow'
-        else:
-            tmpDict['bgColor'] = 'blue'
+	try:
+		task = Task.objects.filter(users=request.user).order_by('name').order_by('deadline')
+	except Task.DoesNotExist:
+		return HttpResponseRedirect("/")
 
-        newArray.append(tmpDict)
+	#Count events per day
+	evtPerDay = 0
+	arrayEvents = []
+	moreOptEvents = []
+	prevEvent = {}
+	count = 0
+	# Loop through all the events from database
+	for i in task:
+		#Variable used to convert object to dic
+		tmpDict = {}
+		if len(i.name) > 6:
+			tmpDict['title'] = i.name[:6] + "..."
+		else:
+			tmpDict['title'] = i.name
+		tmpDict['start'] = time.mktime(i.deadline.timetuple())
+		tmpDict['url'] = "/tasks/" + str(i.pk) + "/"
+		if i.priority == 1:
+			tmpDict['bgColor'] = 'red'
+		elif i.priority == 2:
+			tmpDict['bgColor'] = 'yellow'
+		elif i.priority == 3:
+			tmpDict['bgColor'] = 'green'
 
-    newDict = {}
-    newDict = newArray
+		# Check if prevEvent exists and if prevEvent is on same day as the current event
+		if prevEvent and (prevEvent['start'] == tmpDict['start']) :
+			count = count + 1
+			if count >= 1:
+				tmpDict['title'] = 'More...'
+				tmpDict['url'] = ''
+				tmpDict['bgColor'] = 'gray'
+		else:
+			count = 0
 
-    resp = json.dumps(newDict)
-    if 'callback' in request.REQUEST:
-        resp = callback + '(' + resp + ')'
+		if (count <= 1):
+			arrayEvents.append(tmpDict)
+		prevEvent = tmpDict
 
-    return HttpResponse(resp, content_type='application/json')
+	allEvents = {}
+	allEvents = arrayEvents
+
+	resp = json.dumps(allEvents)
+	if 'callback' in request.REQUEST:
+		resp = callback + '(' + resp + ')'
+
+	return HttpResponse(resp, content_type='application/json')
+
+@ajax_view
+def calendarmore(request, year, month, day):
+
+	try:
+		tasks_list = Task.objects.filter(users=request.user).filter(deadline=year+"-"+month+"-"+day).order_by('name')
+	except Task.DoesNotExist:
+		return HttpResponseRedirect("/")
+
+	return render_to_response('MainApp/box_events.html', {'tasks_list': tasks_list})
+
