@@ -48,7 +48,7 @@ def register(request):
             password = request.POST.get('password', '')
             new_user = auth.authenticate(username=username, password=password)
             auth.login(request, new_user)
-            return HttpResponseRedirect('/new_user/')
+            return HttpResponseRedirect('/')
     else:
         form = UserCreationForm()
     

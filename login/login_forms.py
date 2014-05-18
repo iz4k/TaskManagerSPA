@@ -57,7 +57,10 @@ class UserCreationForm(forms.ModelForm):
     password.widget.attrs["placeholder"]=password.label;
     password2.widget.attrs["placeholder"]=password2.label;
 
-    
+    username.widget.attrs["class"]="form-control";
+    password.widget.attrs["class"]="form-control";
+    password2.widget.attrs["class"]="form-control";
+
     
 
     class Meta:
@@ -107,6 +110,11 @@ class AuthenticationForm(forms.Form):
 
     username.widget.attrs["placeholder"]=username.label;
     password.widget.attrs["placeholder"]=password.label;
+
+
+    username.widget.attrs["class"]="form-control";
+    
+    password.widget.attrs["class"]="form-control";
 
     error_messages = {
         'invalid_login': _("Please enter a correct %(username)s and password. "

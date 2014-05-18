@@ -4,11 +4,9 @@
 			{% if task.priority and task.priority == 1 %}
 				<div class="event_line" style="background-color: red;">
 			{% elif task.priority and task.priority == 2 %}
-				<div class="event_line" style="background-color: orange;">
-			{% elif task.priority and task.priority == 3 %}
 				<div class="event_line" style="background-color: yellow;">
-			{% else %}
-				<div class="event_line" style="background-color: blue;">
+			{% elif task.priority and task.priority == 3 %}
+				<div class="event_line" style="background-color: green;">
 			{% endif %}
 					<a href="/tasks/{{task.pk}}/" class="ajax link_box">
 						<h5 >{{task.name}}</h5>

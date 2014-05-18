@@ -2,12 +2,12 @@
 	
 	<h2> Group: {{group.name }} </h2>
 	<div class="section">
-	<p class="description">{{group.description}}</p>
-	<small>Participants:
-		{% for user in group.users.all %}
-			<a href="{{ user.get_absolute_url }}" class="ajax">{{user.username}}</a>&nbsp;
-		{% endfor %}
-	</small>
+		<p class="description">{{group.description}}</p>
+		<small>Participants:
+			{% for user in group.users.all %}
+				<a href="{{ user.get_absolute_url }}" class="ajax">{{user.username}}</a>&nbsp;
+			{% endfor %}
+		</small>
 	<button class="btn btn-danger" data-toggle="modal" data-target="#gmodal">Delete group</button>
 	</div>
 	<div class="modal fade" id="gmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -31,7 +31,7 @@
 	<div class="section">
 	{% for task in task_list %}
 		<div class="cold-md-12 event">
-			<h4>{{task.name}}</h4>
+			<a href="{{ task.get_absolute_url }}" class="ajax h4">{{task.name}}</a>
 
 			<span>
 			Deadline: {{task.deadline}} 
@@ -40,8 +40,6 @@
 			</span>
 			<p class="fadez">{{task.description}}</p>
 			<a href="{{ task.get_absolute_url }}" class="ajax read-more">Read more</a>
-			<!--TODO -->
-			<p class="comment-nr">X comments</p>
 		</div>
 	{% endfor %}
 	<a href="/tasks_new/" class="ajax btn btn-default">Create a new task</a>
@@ -86,7 +84,6 @@
 						</div>
 						<div class="modal-footer">
 							<button id = "del_comment" data-id="{{comment.id}}" data-dismiss="modal" class="btn btn-default" >Delete</button>
-
 						</div>
 					</div>
 				</div>
