@@ -3,7 +3,7 @@
 	<div class="row">
 	{% for group in group_list %}
 		<div class="cold-md-12 event">
-			<a href="{{ task.get_absolute_url }}" class="ajax h4">{{task.name}}</a>
+			<a href="{{ task.get_absolute_url }}" class="ajax h4">{{group.name}}</a>
 
 			<p class="fadez">{{group.description}}</p>
 			<a href="{{ group.get_absolute_url }}" class="ajax read-more">Read more</a>
