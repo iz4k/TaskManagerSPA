@@ -26,6 +26,8 @@ $(function(){
 		$("#tmodal").one("hidden.bs.modal", function(){
 			$.post('/delete_task/', {"id":task_id}, function(response){
 				$('.left-panel').load("/tasks/" +" .content")
+				$('.right-up-panel').load('/small_task_list/ .content');
+				$('#calendar').fullCalendar( 'refetchEvents' );
 			})
 			.fail(function(data){
 				errorHandle(data);
@@ -38,6 +40,8 @@ $(function(){
 		$("#gmodal").one("hidden.bs.modal", function(){
 			$.post('/delete_group/', {"id":group_id}, function(response){
 				$('.left-panel').load("/groups/" +" .content")
+				$('.right-up-panel').load('/small_task_list/ .content');
+				$('#calendar').fullCalendar( 'refetchEvents' );
 			})
 			.fail(function(data){
 				errorHandle(data);
