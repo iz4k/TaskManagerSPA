@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block pagetitle %}Home{% endblock %}
+
+{% block navbar %}
+	{% include "navbar.html" %}
+{% endblock %}
+
+{% block left-panel %}		
+	<div class="inner-div content">
+		{% for event in latest %}
+			<div class="cold-md-10 event">
+				{% if event.type == "group"%}
+					New group <a href='{{event.get_absolute_url}}' class='ajax'><b>{{event.name}}</b></a> was created.
+				{% elif event.type == "task"%}
+					New task <a href='{{event.get_absolute_url}}' class='ajax'><b>{{event.name}}</b> </a>
+					{%if event.group %}
+						for group <a href='{{event.group.get_absolute_url}}' class='ajax'><b>{{event.group.name}}</b> </a>
+					{%endif%}
+					 was created.
+				{% elif event.type == "comment"%}
+					{% if event.task %}
+						New comment in task <a href='{{event.task.get_absolute_url}}' class='ajax'><b>{{event.task.name}}</b></a>
+					{% elif event.group %}
+						New comment in group <a href ='{{event.group.get_absolute_url}}' class='ajax'><b>{{event.group.name}}</b></a>
+					{% endif %}
+				{% endif %}
+			</div>
+		{% empty %}
+			No new events were found.
+		{% endfor %}
+
+	</div>
+{% endblock %}
+

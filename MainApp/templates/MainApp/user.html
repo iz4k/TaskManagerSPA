@@ -1,0 +1,13 @@
+<div class="inner-div content">
+	
+	<h2> User </h2>
+	<p><em>Username</em><br>{{user.username}}</p>
+	
+	<h2>{{user.username}}'s Groups</h2>	
+	<ul>
+	{% for group in group_list %}
+		<li><a href="{{ group.get_absolute_url }}" class="ajax">{{ group.name }}</a></li>
+	{% endfor %}
+	</ul>
+
+</div>

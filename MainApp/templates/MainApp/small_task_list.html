@@ -1,0 +1,16 @@
+<div class="inner-div content">
+	<div class="row">
+	{% for task in task_list %}
+		<div class="cold-md-12 event prio{{task.priority}}">
+			
+
+			<a href="{{ task.get_absolute_url }}" class="ajax read-more" style="color:black;">{{task.name}}</a>
+			<small style="float:right;">{{task.deadline}}</small>
+		</div>
+	{% endfor %}
+	</div>
+	
+	
+
+</div>
+
