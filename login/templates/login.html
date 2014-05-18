@@ -1,5 +1,5 @@
 {% load bootstrap3 %}
-
+{% load staticfiles %}
 {# Load CSS and JavaScript #}
 
 {% bootstrap_css %}
@@ -28,18 +28,23 @@
 						</div>
 					{% endfor %}
 
-				    <input type="submit" value="login" />
+					<button type="submit" class="btn btn-default navbar-btn">Sign in</input>
 				    <input type="hidden" name="next" value="{{ next|escape }}" />
 				</div>
 		 	</form>
 
 			<a href="/register/">No Account? Create Here.</a>
 
-			<div>Log In With:</div>
 
-			<a href="{% url 'social:begin' 'google' %}">Google OpenId</a><br>
-			<a href="{% url 'social:begin' 'yahoo' %}">Yahoo OpenId</a>
+			<div class="row">
+				<div>Log In With:</div>
+				<img src="{% static 'img/google-logo.png' %}" height="16" width="16" />
+				<a href="{% url 'social:begin' 'google' %}">Google OpenId</a>
 
+				<br />
+				<img src="{% static 'img/yahoo-logo.jpg' %}" height="16" width="16" />
+				<a href="{% url 'social:begin' 'yahoo' %}">Yahoo OpenId</a>
+			</div>
 			</div><!--logreg-area--> 
 		</div>
 	</div>
