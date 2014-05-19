@@ -68,9 +68,9 @@ form:after{
 	border: 1px solid #333;
 }
 .event {
-	background-color: #96D7FF; 
+	background-color: #C9E6FF; 
 	margin-bottom: 10px; 
-	color: white; 
+	color: #666; 
 	border: 1px solid #333;
 	padding: 1em ;
 }
@@ -84,7 +84,7 @@ form:after{
 	font-size: 160%;
 	color:#333;
 	font-weight: 700;
-	background-color: #7ACCFF;
+	/*background-color: #A592C7;*/
 	line-height: 1.5;
 }
 .event .h4:after {
