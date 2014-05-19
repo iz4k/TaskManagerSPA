@@ -13,7 +13,7 @@ import time
 
 @login_required
 def home(request):
-	print >>sys.stderr, 'TEST PRINT PLS IGNORE'
+	#print >>sys.stderr, 'TEST PRINT PLS IGNORE'
 	user = request.user
 
 	task_list = Task.objects.filter(users = request.user)

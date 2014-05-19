@@ -33,8 +33,7 @@ def login(request):
     return render(request,'login.html',{'form':form}) 
 
 def new_user(request):
-    return render(request,'new_user.html',{'user':request.user}) 
-
+    return HttpResponseRedirect('/')
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/") 
