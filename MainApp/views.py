@@ -282,7 +282,7 @@ def calendarjson(request):
 def calendarmore(request, year, month, day):
 
 	try:
-		tasks_list = Task.objects.filter(users=request.user).filter(deadline=year+"-"+month+"-"+day).order_by('name')[1:]
+		tasks_list = Task.objects.filter(users=request.user).filter(deadline=year+"-"+month+"-"+day).order_by('name').order_by('deadline')[1:]
 	except Task.DoesNotExist:
 		return HttpResponseRedirect("/")
 
